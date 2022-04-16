@@ -1,0 +1,7 @@
+{
+  "name": "@vscodegraphqlexplorer/lib-message-states",
+  "version": "0.0.1",
+  "main": "dist/vscodegraphqlexplorer-lib-message-states.cjs.js",
+  "module": "dist/vscodegraphqlexplorer-lib-message-states.esm.js",
+  "private": true
+}

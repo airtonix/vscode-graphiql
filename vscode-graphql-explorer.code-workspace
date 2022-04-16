@@ -1,0 +1,58 @@
+{
+  "folders": [
+    {
+      "name": "lib/message-states",
+      "path": "packages/lib/message-states"
+    },
+    {
+      "name": "View: VscodeGraphqlExplorer",
+      "path": "./apps/vscode-graphql-explorer-view/"
+    },
+    {
+      "name": "Ext: VscodeGraphqlExplorer",
+      "path": "./apps/vscode-graphql-explorer-ext/"
+    },
+    {
+      "name": "repo",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.eol": "\n",
+    "editor.formatOnSave": true,
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact"
+    ],
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.tsdk": "View: VscodeGraphqlExplorer/node_modules/typescript/lib",
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "terminal.integrated.enablePersistentSessions": false,
+    "terminal.integrated.showExitAlert": false,
+    "jest.autoRun": {
+      "watch": false,
+      "onSave": "test-src-file"
+    },
+    "jest.jestCommandLine": "yarn jest"
+  },
+  "extensions": {
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "rvest.vs-code-prettier-eslint",
+      "dbaeumer.vscode-eslint",
+      "editorconfig.editorconfig",
+      "orta.vscode-jest",
+      "kavod-io.vscode-jest-test-adapter"
+    ]
+  }
+}

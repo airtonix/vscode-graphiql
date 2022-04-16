@@ -1,0 +1,82 @@
+name: Release Package
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  process_changeset:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: asdf setup
+        uses: asdf-vm/actions/setup@v1.1.0
+      - name: asdf install
+        run: |
+          set -x
+          asdf plugin add yarn
+          asdf plugin add nodejs
+          asdf plugin add just https://github.com/heliumbrain/asdf-just
+          asdf install
+
+      - name: Setup publishing
+        uses: actions/setup-node@v2
+        with:
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Cache node modules
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-yarn-modules
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - run: yarn install --immutable
+
+      - name: Setup git
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@8407731efefc0d8f72af254c74276b7a90be36e1
+        with:
+          github_token: ${{ secrets.GIT_PUSH_TOKEN }}
+          branch: ${{ github.ref }}
+
+      - name: Get Current Pull Request
+        uses: 8BitJonny/gh-get-current-pr@1.0.1
+        id: pr
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          filterOutClosed: true
+
+      - id: file_changes
+        name: File Changes
+        uses: trilom/file-changes-action@a6ca26c14274c33b15e6499323aac178af06ad4b
+        with:
+          output: json
+          fileOutput: json
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          prNumber: ${{ steps.pr.outputs.number }}
+          pushBefore: ''
+          pushAfter: ''
+
+      - if: contains(steps.file_changes.outputs.files , 'apps/vscode=graphql-explorer-ext')
+        name: Build/release Extension
+        run: echo 'building extension'
+
+      - if: contains(steps.file_changes.outputs.files , 'apps/vscode=graphql-explorer-view')
+        name: Build/release View
+        run: echo 'building view'

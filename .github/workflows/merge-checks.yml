@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  mergechecks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: asdf setup
+        uses: asdf-vm/actions/setup@v1.1.0
+      - name: asdf install
+        run: |
+          set -x
+          asdf plugin add yarn
+          asdf plugin add nodejs
+          asdf plugin add just https://github.com/heliumbrain/asdf-just
+          asdf install
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+      - name: Cache node modules
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-yarn-modules
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - run: yarn install --frozen-lockfile
+      - run: yarn typecheck
+      - run: yarn lint
+      - run: yarn test -- --ci --reporters=default --reporters=jest-junit
+        env:
+          JEST_JUNIT_OUTPUT_DIR: reports
+          JEST_JUNIT_OUTPUT_NAME: jest-junit.xml
+          JEST_JUNIT_ANCESTOR_SEPARATOR: ' › '
+          JEST_JUNIT_UNIQUE_OUTPUT_NAME: false
+          JEST_JUNIT_SUITE_NAME: '{filepath}'
+          JEST_JUNIT_CLASSNAME: '{classname}'
+          JEST_JUNIT_TITLE: '{title}'
+
+      - uses: actions/upload-artifact@v2 # upload test results
+        if: success() || failure() # run this step even if previous step failed
+        with:
+          name: test-results
+          path: reports/jest-junit.xml

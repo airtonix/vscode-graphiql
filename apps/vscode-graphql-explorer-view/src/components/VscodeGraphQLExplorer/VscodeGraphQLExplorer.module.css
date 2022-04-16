@@ -1,0 +1,132 @@
+.block {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    font-family: var(--vscode-font-family);
+    font-size: var(--vscode-font-size);
+    background-color: var(--vscode-editor-background);
+    color: var(--vscode-foreground);
+}
+
+/**
+ *  The Topbar
+ */
+
+.block :global .graphiql-container .editorWrap .topBar {
+    background: var(--vscode-editor-background);
+    border-bottom: 1px solid var(--vscode-editorGroup-border);
+    color: var(--vscode-foreground);
+
+}
+
+.block :global .graphiql-container .editorWrap .topBar .toolbar-button {
+    color: var(--vscode-button-foreground);
+    background: var(--vscode-button-background);
+    border: 0;
+    box-shadow: none;
+}
+
+.block :global .graphiql-container .execute-button {
+    border: 1px solid var(--vscode-button-foreground);
+    background: var(--vscode-editor-background);
+    box-shadow: none;
+    fill: var(--vscode-button-foreground);
+}
+
+ /**
+ *  The Schema Explorer
+ */
+.explorer {
+    font-family: var(--vscode-font-family);
+    background-color: var(--vscode-editor-background);
+    color: inherit;
+}
+
+.explorer :global .doc-explorer-title-bar {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--vscode-editorGroup-border);
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 16px 8px ;
+}
+.explorer :global .doc-explorer-title {
+    font-weight: bold;
+
+}
+.explorer :global .graphiql-operation-title-bar {
+    color: inherit !important;
+    background: inherit !important;
+    display: flex;
+    align-items: center;
+}
+.explorer :global .graphiql-operation-title-bar span {
+    flex-grow: 1;
+}
+.explorer :global .graphiql-operation-title-bar input {
+    padding: 8px;
+    display: flex;
+    flex-grow: 1;
+    width: 100% !important;
+    color: var(--vscode-input-foreground) !important;
+    background-color: var(--vscode-input-background) !important;
+    border-color: var(--vscode-input-border) !important;
+    border-width: 1px;
+    border-style: solid;
+}
+.explorer :global .graphiql-explorer-node svg path {
+    fill: var(--vscode-foreground);
+}
+.explorer :global .graphiql-explorer-field-view {
+    color: var(--vscode-symbolIcon-variableForeground) !important;
+}
+.explorer :global .graphiql-explorer-graphql-arguments span {
+    color: var(--vscode-symbolIcon-typeParameterForeground) !important;
+}
+
+
+/**
+ *  The Query Editor
+ */
+.block :global .CodeMirror,
+.block :global .CodeMirror-gutters
+{
+    background: var(--vscode-editorGutter-background) !important;
+    border-color: var(--vscode-editorGroup-border);
+    color: inherit;
+}
+.block :global .CodeMirror-linenumber {
+    color: var(--vscode-editorLineNumber-foreground);
+}
+.block :global .CodeMirror .cm-keyword {
+    color: var(--vscode-symbolIcon-keywordForeground);
+}
+.block :global .CodeMirror .cm-def {
+    color: var(--vscode-symbolIcon-functionForeground);
+}
+.block :global .CodeMirror .cm-punctuation {
+    color: var(--vscode-symbolIcon-keywordForeground);
+}
+.block :global .CodeMirror .cm-property {
+    color: var(--vscode-symbolIcon-keywordForeground);
+}
+.block :global .CodeMirror .cm-string {
+    color: var(--vscode-symbolIcon-stringForeground);
+}
+.block :global .CodeMirror-matchingbracket {
+    color: var(--vscode-symbolIcon-keywordForeground);
+    background-color: var(--vscode-editorBracketMatch-background);
+}
+.block :global .CodeMirror-lint-mark.CodeMirror-lint-mark-error {
+    color: var(--vscode-editorError-foreground);
+    background-image: none;
+}
+
+
+/**
+ *  The Response
+ */
+ .block :global .resultWrap {
+    border-color: 1px solid var(--vscode-editorGroup-border);
+}

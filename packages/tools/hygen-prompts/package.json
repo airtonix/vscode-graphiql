@@ -1,0 +1,15 @@
+{
+  "name": "@vscodegraphqlexplorer/tools-hygen-prompts",
+  "version": "0.0.1",
+  "private": true,
+  "main": "dist/vscodegraphqlexplorer-tools-hygen-prompts.cjs.js",
+  "module": "dist/vscodegraphqlexplorer-tools-hygen-prompts.esm.js",
+  "dependencies": {
+    "@manypkg/get-packages": "^1.1.1",
+    "lodash": "^4.17.21",
+    "minimatch": "^3.0.4",
+    "nconf": "0.11.3",
+    "treeify": "^1.1.0",
+    "user-home": "^2.0.0"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "@vscodegraphqlexplorer/vscode-graphql-explorer-ext",
+  "version": "0.0.1",
+  "publisher": "airtonix",
+  "main": "dist/vscodegraphqlexplorer-vscode-graphql-explorer-ext.cjs.js",
+  "private": true,
+  "engines": {
+    "vscode": "^1.66.0"
+  },
+  "activationEvents": [
+    "onCommand:vscodegraphqlexplorer.exploreSchema"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscodegraphqlexplorer.exploreSchema",
+        "title": "Explore schema..."
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "when": "resourceLangId == graphql",
+          "command": "vscodegraphqlexplorer.exploreSchema"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn build",
+    "build": "preconstruct build"
+  },
+  "dependencies": {
+    "@types/node": "17.0.19",
+    "@types/vscode": "1.66.0",
+    "@vscodegraphqlexplorer/lib-message-states": "0.0.1",
+    "ts-node": "10.5.0",
+    "typescript": "4.5.5"
+  }
+}
