@@ -79,7 +79,6 @@
   },
   "preconstruct": {
     "packages": [
-      "!node_modules",
       "!./apps/graphiql-view",
       "./apps/*",
       "!./packages/tools/hygen-prompts",

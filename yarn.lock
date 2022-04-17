@@ -11856,7 +11856,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"graphiqlexplorer@workspace:apps/graphiql-ext":
+"graphiqlexplorer@*, graphiqlexplorer@workspace:apps/graphiql-ext":
   version: 0.0.0-use.local
   resolution: "graphiqlexplorer@workspace:apps/graphiql-ext"
   dependencies:
@@ -11865,6 +11865,7 @@ fsevents@^1.2.7:
     "@types/vscode": 1.66.0
     "@vscodegraphqlexplorer/lib-message-states": 0.0.1
     "@vscodegraphqlexplorer/lib-types": 0.0.1
+    graphiqlexplorer: "*"
     ts-node: 10.5.0
     typescript: 4.5.5
     vsce-yarn-patch: 1.66.2
