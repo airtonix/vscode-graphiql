@@ -17,7 +17,7 @@ change:
 build:
     preconstruct build
     just view build
-    cd apps/ext
+    cd apps/graphiql-ext
     vsce package
 
 # Process recorded changesets

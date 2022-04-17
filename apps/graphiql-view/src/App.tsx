@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
-import { GraphiQLApp } from './components/GraphiQLApp';
+
 import { MessageStates } from '@vscodegraphqlexplorer/lib-message-states';
 import * as types from '@vscodegraphqlexplorer/lib-types';
+
+import './App.css';
+import { GraphiQLApp } from './components/GraphiQLApp';
 import { vscode } from './services/VscodeApi';
 
+type SetSchemaMessageKindPayload = types.SetSchemaMessageKind['payload'];
+
 const App = () => {
-  const [state, setState] = useState<types.SetSchemaMessageKind['payload']>({
+  const [state, setState] = useState<SetSchemaMessageKindPayload>({
     schema: '',
     connection: {
       host: '',

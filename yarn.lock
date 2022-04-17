@@ -5847,9 +5847,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@vscodegraphqlexplorer/vscode-graphql-explorer-view@workspace:apps/vscode-graphql-explorer-view":
+"@vscodegraphqlexplorer/vscode-graphql-explorer-view@workspace:apps/graphiql-view":
   version: 0.0.0-use.local
-  resolution: "@vscodegraphqlexplorer/vscode-graphql-explorer-view@workspace:apps/vscode-graphql-explorer-view"
+  resolution: "@vscodegraphqlexplorer/vscode-graphql-explorer-view@workspace:apps/graphiql-view"
   dependencies:
     "@babel/core": ^7.17.9
     "@graphql-tools/mock": 8.6.7
@@ -5897,6 +5897,7 @@ __metadata:
     react-dom: 17.0.2
     react-hook-form: 7.29.0
     rollup-plugin-friendly-type-imports: 1.0.3
+    ts-css-modules-vite-plugin: 1.0.18
     ts-jest: 27.1.4
     typescript: 4.5.5
     typescript-plugin-css-modules: 3.4.0
@@ -7666,7 +7667,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camelcase-css@npm:2.0.1":
+"camelcase-css@npm:2.0.1, camelcase-css@npm:^2.0.1":
   version: 2.0.1
   resolution: "camelcase-css@npm:2.0.1"
   checksum: 1cec2b3b3dcb5026688a470b00299a8db7d904c4802845c353dbd12d9d248d3346949a814d83bfd988d4d2e5b9904c07efe76fecd195a1d4f05b543e7c0b56b1
@@ -11966,9 +11967,9 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"graphiql@workspace:apps/vscode-graphql-explorer-ext":
+"graphiql@workspace:apps/graphiql-ext":
   version: 0.0.0-use.local
-  resolution: "graphiql@workspace:apps/vscode-graphql-explorer-ext"
+  resolution: "graphiql@workspace:apps/graphiql-ext"
   dependencies:
     "@types/node": 17.0.19
     "@types/vscode": 1.66.0
@@ -17270,6 +17271,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"postcss-js@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "postcss-js@npm:3.0.3"
+  dependencies:
+    camelcase-css: ^2.0.1
+    postcss: ^8.1.6
+  checksum: cc17f59f2b9bb22ed1cf9daab1f9944635b0713dce923ff7d9fd10b89393fc9aa1fab43a97f9a71295827fa32c9676d52661d7d6a693ecc0c41541ee928c781e
+  languageName: node
+  linkType: hard
+
 "postcss-load-config@npm:^3.0.1":
   version: 3.1.4
   resolution: "postcss-load-config@npm:3.1.4"
@@ -17390,7 +17401,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.3.0, postcss@npm:^8.4.6":
+"postcss@npm:^8.1.6, postcss@npm:^8.3.0, postcss@npm:^8.4.6":
   version: 8.4.12
   resolution: "postcss@npm:8.4.12"
   dependencies:
@@ -18949,7 +18960,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.32.13":
+"sass@npm:^1.32.13, sass@npm:^1.43.4":
   version: 1.50.0
   resolution: "sass@npm:1.50.0"
   dependencies:
@@ -20597,6 +20608,17 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"ts-css-modules-vite-plugin@npm:1.0.18":
+  version: 1.0.18
+  resolution: "ts-css-modules-vite-plugin@npm:1.0.18"
+  dependencies:
+    postcss-js: ^3.0.3
+    sass: ^1.43.4
+    ts-node: ^10.4.0
+  checksum: 1493ffc20389184773d05c0f4bf4eca488e45a70aaee201b567e7d8459993733078b4dd8876a406cbb88e17863e0f9dc339043fef09995ec4afce77fdb88e380
+  languageName: node
+  linkType: hard
+
 "ts-dedent@npm:^2.0.0, ts-dedent@npm:^2.2.0":
   version: 2.2.0
   resolution: "ts-dedent@npm:2.2.0"
@@ -20674,7 +20696,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^10.5.0":
+"ts-node@npm:^10.4.0, ts-node@npm:^10.5.0":
   version: 10.7.0
   resolution: "ts-node@npm:10.7.0"
   dependencies:

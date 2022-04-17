@@ -10,11 +10,11 @@
     },
     {
       "name": "APP/view",
-      "path": "./apps/vscode-graphql-explorer-view/"
+      "path": "./apps/graphiql-view"
     },
     {
       "name": "APP/ext",
-      "path": "./apps/vscode-graphql-explorer-ext/"
+      "path": "./apps/graphiql-ext"
     },
     {
       "name": "repo",
@@ -34,7 +34,8 @@
       "source.fixAll.eslint": true
     },
     "typescript.preferences.importModuleSpecifier": "relative",
-    "typescript.tsdk": "View: VscodeGraphqlExplorer/node_modules/typescript/lib",
+    "typescript.tsdk": "APP/view/node_modules/typescript/lib",
+
     "[typescriptreact]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
     },

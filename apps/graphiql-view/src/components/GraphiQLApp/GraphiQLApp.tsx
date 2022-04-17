@@ -1,13 +1,8 @@
-import React, {
-  useMemo,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import type { ComponentProps } from 'react';
+import * as React from 'react';
+import { useMemo, useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import GraphiQL from 'graphiql';
+import type { GraphiQLProps } from 'graphiql';
 import { parse, buildSchema } from 'graphql';
 
 //@ts-ignore
@@ -26,10 +21,7 @@ const isGraphiQL = (thing: GraphiQL | null): thing is GraphiQL => {
   return thing instanceof GraphiQL;
 };
 
-type GraphiQLAppProps = Omit<
-  ComponentProps<typeof GraphiQL>,
-  'schema' | 'fetcher'
-> & {
+type GraphiQLAppProps = Omit<GraphiQLProps, 'schema' | 'fetcher'> & {
   disableExplorer?: boolean;
   disableConnectionEditor?: boolean;
   schema: string;
