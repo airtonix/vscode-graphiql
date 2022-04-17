@@ -1,3 +1,7 @@
+# JUSTFILE
+# https://github.com/casey/just
+#
+
 export PATH := justfile_directory() + "/node_modules/.bin:" + env_var('PATH')
 
 default:
@@ -17,7 +21,7 @@ change:
 build:
     preconstruct build
     just view build
-    cd apps/graphiql-ext && vsce package --yarn
+    just ext package
 
 # Process recorded changesets
 release:
