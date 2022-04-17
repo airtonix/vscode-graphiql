@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { VscodeGraphQLExplorer } from './components/VscodeGraphQLExplorer';
+import { GraphiQLApp } from './components/GraphiQLApp';
 import { MessageStates } from '@vscodegraphqlexplorer/lib-message-states';
-import { SetSchemaMessage } from '@vscodegraphqlexplorer/lib-types';
-import type { SetSchemaMessageKind } from '@vscodegraphqlexplorer/lib-types';
+import * as types from '@vscodegraphqlexplorer/lib-types';
 import { vscode } from './services/VscodeApi';
 
 const App = () => {
-  const [state, setState] = useState<SetSchemaMessageKind['payload']>({
+  const [state, setState] = useState<types.SetSchemaMessageKind['payload']>({
     schema: '',
     connection: {
       host: '',
@@ -24,7 +23,7 @@ const App = () => {
         const { command, payload } = data;
         if (!command) return;
 
-        if (SetSchemaMessage.guard(data)) {
+        if (types.SetSchemaMessage.guard(data)) {
           setState({
             ...state,
             ...data.payload,
@@ -37,7 +36,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <VscodeGraphQLExplorer
+      <GraphiQLApp
         schema={state.schema}
         host={state.connection?.host}
         token={state.connection?.token}

@@ -1,8 +1,6 @@
 {
   "name": "@vscodegraphqlexplorer/vscode-graphql-explorer-view",
   "version": "0.0.1",
-  "main": "dist/vscodegraphqlexplorer-vscode-graphql-explorer-view.cjs.js",
-  "module": "dist/vscodegraphqlexplorer-vscode-graphql-explorer-view.esm.js",
   "private": true,
   "scripts": {
     "test": "jest",

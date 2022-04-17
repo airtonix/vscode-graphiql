@@ -4,7 +4,6 @@
     "baseUrl": "./src",
     "module": "commonjs",
     "target": "es6",
-    "outDir": "dist",
     "lib": ["es6"],
     "sourceMap": true,
     "strict": true,

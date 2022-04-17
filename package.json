@@ -84,6 +84,8 @@
   },
   "preconstruct": {
     "packages": [
+      "!node_modules",
+      "!./apps/vscode-graphql-explorer-view",
       "./apps/*",
       "!./packages/tools/hygen-prompts",
       "./packages/**"

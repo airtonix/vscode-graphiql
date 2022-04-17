@@ -14,6 +14,12 @@ setup:
 change:
     changeset
 
+build:
+    preconstruct build
+    just view build
+    cd apps/ext
+    vsce package
+
 # Process recorded changesets
 release:
     changeset version
@@ -36,7 +42,7 @@ test:
 
 # AppShortcut: Extension VScode Graphql Explorer
 ext *command='dev':
-    yarn workspace @vscodegraphqlexplorer/vscode-graphql-explorer-ext {{command}}
+    yarn workspace graphiql {{command}}
 
 view *command='dev':
     yarn workspace @vscodegraphqlexplorer/vscode-graphql-explorer-view {{command}}

@@ -1,9 +1,10 @@
 {
   "name": "@vscodegraphqlexplorer/lib-types",
   "version": "0.0.1",
-  "main": "src/index.ts",
+  "main": "dist/vscodegraphqlexplorer-lib-types.cjs.js",
   "private": true,
   "dependencies": {
+    "@vscodegraphqlexplorer/lib-message-states": "0.0.1",
     "runtypes": "6.5.1"
   }
 }

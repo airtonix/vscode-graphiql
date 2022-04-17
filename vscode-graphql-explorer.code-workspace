@@ -1,19 +1,19 @@
 {
   "folders": [
     {
-      "name": "lib/types",
+      "name": "LIB/types",
       "path": "packages/lib/types"
     },
     {
-      "name": "lib/message-states",
+      "name": "LIB/message-states",
       "path": "packages/lib/message-states"
     },
     {
-      "name": "View: VscodeGraphqlExplorer",
+      "name": "APP/view",
       "path": "./apps/vscode-graphql-explorer-view/"
     },
     {
-      "name": "Ext: VscodeGraphqlExplorer",
+      "name": "APP/ext",
       "path": "./apps/vscode-graphql-explorer-ext/"
     },
     {

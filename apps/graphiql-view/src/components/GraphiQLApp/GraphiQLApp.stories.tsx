@@ -2,20 +2,20 @@ import React from 'react';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import { graphql } from 'msw';
 
-import { VscodeGraphQLExplorer } from './VscodeGraphQLExplorer';
+import { GraphiQLApp } from './GraphiQLApp';
 import { server, schema } from '../../mocks';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'VscodeGraphqlExplorerView/VscodeGraphQLExplorer',
-  component: VscodeGraphQLExplorer,
+  title: 'AppView/GraphiQLApp',
+  component: GraphiQLApp,
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-} as ComponentMeta<typeof VscodeGraphQLExplorer>;
+} as ComponentMeta<typeof GraphiQLApp>;
 
-const Template: ComponentStory<typeof VscodeGraphQLExplorer> = (args) => {
-  return <VscodeGraphQLExplorer {...args} />;
+const Template: ComponentStory<typeof GraphiQLApp> = (args) => {
+  return <GraphiQLApp {...args} />;
 };
 
 export const Primary = Template.bind({});

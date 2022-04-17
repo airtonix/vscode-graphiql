@@ -9,6 +9,7 @@ import {
   SECRETS_STORAGEKEY_CONNECTION_HOST,
   SECRETS_STORAGEKEY_CONNECTION_TOKEN,
   WEBVIEW_RESOURCE_PATH,
+  WEBVIEW_TAB_TITLE,
 } from './constants';
 
 /**
@@ -59,7 +60,7 @@ export class ExploreSchemaWebview {
     // Create and show a new webview panel
     this._panel = window.createWebviewPanel(
       ExploreSchemaWebview.viewType,
-      'React',
+      WEBVIEW_TAB_TITLE,
       column,
       {
         // Enable javascript in the webview

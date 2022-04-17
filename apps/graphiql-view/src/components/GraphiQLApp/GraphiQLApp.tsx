@@ -1,8 +1,15 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  useMemo,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import type { ComponentProps } from 'react';
 import classNames from 'classnames';
 import GraphiQL from 'graphiql';
-import { parse } from 'graphql';
+import { parse, buildSchema } from 'graphql';
+
 //@ts-ignore
 import GraphiQLExplorer from 'graphiql-explorer';
 import 'graphiql/graphiql.min.css';
@@ -12,15 +19,14 @@ import { ConnectionConfigPanel } from '../ConnectionConfig';
 import type { ConnectionConfigFormData } from '../ConnectionConfig';
 import { NoSchemaError } from '../NoSchemaError';
 
-import { useSchema } from './useSchema';
 import { useFetch } from './useFetch';
-import styles from './VscodeGraphQLExplorer.module.css';
+import styles from './GraphiQLApp.module.css';
 
 const isGraphiQL = (thing: GraphiQL | null): thing is GraphiQL => {
   return thing instanceof GraphiQL;
 };
 
-type VscodeGraphQLExplorerProps = Omit<
+type GraphiQLAppProps = Omit<
   ComponentProps<typeof GraphiQL>,
   'schema' | 'fetcher'
 > & {
@@ -34,7 +40,7 @@ type VscodeGraphQLExplorerProps = Omit<
     token?: string;
   }) => Promise<void>;
 };
-type VscodeGraphQLExplorerState = {
+type GraphiQLAppState = {
   query?: string;
   disableExplorer?: boolean;
   explorerIsOpen?: boolean;
@@ -42,7 +48,7 @@ type VscodeGraphQLExplorerState = {
   connectionConfigIsOpen?: boolean;
 };
 
-export const VscodeGraphQLExplorer = ({
+export const GraphiQLApp = ({
   schema,
   host,
   token,
@@ -53,15 +59,18 @@ export const VscodeGraphQLExplorer = ({
   onEditQuery,
   onEditVariables,
   onSaveConnectionClick,
-}: VscodeGraphQLExplorerProps) => {
-  const [state, setState] = useState<VscodeGraphQLExplorerState>({
+}: GraphiQLAppProps) => {
+  const [state, setState] = useState<GraphiQLAppState>({
     query: defaultQuery,
     disableExplorer,
     explorerIsOpen: true,
     codeExporterIsOpen: false,
     connectionConfigIsOpen: false,
   });
-  const GqlSchema = useSchema(schema);
+  const GqlSchema = useMemo(() => {
+    if (!schema) return;
+    return buildSchema(schema);
+  }, [schema]);
   const fetcher = useFetch({
     token,
     url: host,
