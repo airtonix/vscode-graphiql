@@ -5,7 +5,11 @@ import type { ExtensionContext, WebviewPanel, Disposable } from 'vscode';
 
 import { MessageStates } from '@vscodegraphqlexplorer/lib-message-states';
 
-import { WEBVIEW_RESOURCE_PATH } from './constants';
+import {
+  SECRETS_STORAGEKEY_CONNECTION_HOST,
+  SECRETS_STORAGEKEY_CONNECTION_TOKEN,
+  WEBVIEW_RESOURCE_PATH,
+} from './constants';
 
 /**
  * Manages react webview panels
@@ -88,6 +92,9 @@ export class ExploreSchemaWebview {
           case MessageStates.ALERT:
             window.showErrorMessage(message.text);
             return;
+          case MessageStates.SAVE_CONNECTION:
+            this.saveConnection(message.data);
+            return;
         }
       },
       null,
@@ -98,6 +105,21 @@ export class ExploreSchemaWebview {
   reveal(column: ViewColumn | undefined, filePath: Uri) {
     this._panel.reveal(column);
     this.exploreSchema(filePath);
+  }
+
+  saveConnection({
+    connection,
+  }: {
+    connection: { host: string; token: string };
+  }) {
+    this.context.secrets.store(
+      SECRETS_STORAGEKEY_CONNECTION_HOST,
+      connection.host
+    );
+    this.context.secrets.store(
+      SECRETS_STORAGEKEY_CONNECTION_TOKEN,
+      connection.token
+    );
   }
 
   async exploreSchema(filePath: Uri) {
