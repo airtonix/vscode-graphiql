@@ -24,7 +24,7 @@ export class ExploreSchemaWebview {
   public static createOrShow(
     extensionPath: string,
     filePath: string,
-    extensionMode: ExtensionMode
+    context: ExtensionContext
   ) {
     const { activeTextEditor } = window;
     const column = activeTextEditor ? activeTextEditor.viewColumn : undefined;
@@ -39,7 +39,7 @@ export class ExploreSchemaWebview {
         extensionPath,
         file,
         column || ViewColumn.One,
-        extensionMode
+        context
       );
     }
   }
@@ -48,7 +48,7 @@ export class ExploreSchemaWebview {
     public extensionPath: string,
     public filePath: Uri,
     public column: ViewColumn,
-    public mode: ExtensionMode
+    public context: ExtensionContext
   ) {
     this.assetPath = join(this.extensionPath, WEBVIEW_RESOURCE_PATH);
 
@@ -66,7 +66,7 @@ export class ExploreSchemaWebview {
       }
     );
 
-    if (mode === ExtensionMode.Development) {
+    if (context.extensionMode === ExtensionMode.Development) {
       this._panel.webview.html = this.developmentHtml();
     } else {
       // Set the webview's initial html content
@@ -107,10 +107,18 @@ export class ExploreSchemaWebview {
 
     const readData = await workspace.fs.readFile(filePath);
     const schema = Buffer.from(readData).toString('utf8');
+    const host = await this.context.secrets.get('connectionHost');
+    const token = await this.context.secrets.get('connectionToken');
 
     this._panel.webview.postMessage({
       command: MessageStates.EXPLORE_SCHEMA,
-      payload: schema,
+      payload: {
+        schema,
+        connect: {
+          host,
+          token,
+        },
+      },
     });
   }
 
