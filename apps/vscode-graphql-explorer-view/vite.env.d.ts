@@ -8,7 +8,3 @@ declare module '*.module.css' {
 interface PlainTextFile {
   plainText: string;
 }
-
-declare module '*.txt' {
-  export = PlainTextFile;
-}

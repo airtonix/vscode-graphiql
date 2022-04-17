@@ -4,14 +4,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
-    background: transparent;
-    border: 2px solid salmon;
+    color: var(--vscode-editorError-foreground);
+
+    border: 2px solid;
     border-radius: 4px;
     padding: 8px;
 
     display: flex;
     flex-direction: column;
 
-    font: sans-serif;
-    color: salmon;
 }

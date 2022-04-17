@@ -2,17 +2,18 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { ComponentProps } from 'react';
 import classNames from 'classnames';
 import GraphiQL from 'graphiql';
+import { parse } from 'graphql';
 //@ts-ignore
 import GraphiQLExplorer from 'graphiql-explorer';
 import 'graphiql/graphiql.min.css';
 import 'graphiql-with-extensions/graphiqlWithExtensions.css';
 
-import { parse } from 'graphql';
+import { ConnectionConfigPanel } from '../ConnectionConfig';
+import type { ConnectionConfigFormData } from '../ConnectionConfig';
+import { NoSchemaError } from '../NoSchemaError';
+
 import { useSchema } from './useSchema';
-import { ConnectionConfigPanel } from './ConnectionConfigPanel';
-import { ConnectionConfigFormData } from './ConnectionConfigSchema';
 import { useFetch } from './useFetch';
-import { NoSchemaError } from './NoSchemaError';
 import styles from './VscodeGraphQLExplorer.module.css';
 
 const isGraphiQL = (thing: GraphiQL | null): thing is GraphiQL => {
