@@ -1,1 +1,1 @@
-export { VscodeApi } from './VscodeApi';
+export { vscode } from './VscodeApi';

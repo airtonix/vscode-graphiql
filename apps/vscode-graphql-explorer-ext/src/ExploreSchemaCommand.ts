@@ -6,7 +6,7 @@ export const ExploreSchemaCommand = (context: ExtensionContext) => {
     ExploreSchemaWebview.createOrShow(
       context.extensionPath,
       commandContext.path,
-      context.extensionMode
+      context
     );
   };
 };

@@ -85,6 +85,7 @@
   "preconstruct": {
     "packages": [
       "./apps/*",
+      "!./packages/tools/hygen-prompts",
       "./packages/**"
     ]
   }

@@ -136,7 +136,7 @@ export class ExploreSchemaWebview {
       command: MessageStates.EXPLORE_SCHEMA,
       payload: {
         schema,
-        connect: {
+        connection: {
           host,
           token,
         },

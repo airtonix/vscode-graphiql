@@ -1,0 +1,9 @@
+{
+  "name": "@vscodegraphqlexplorer/lib-types",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "private": true,
+  "dependencies": {
+    "runtypes": "6.5.1"
+  }
+}

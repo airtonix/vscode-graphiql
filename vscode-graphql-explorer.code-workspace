@@ -1,6 +1,10 @@
 {
   "folders": [
     {
+      "name": "lib/types",
+      "path": "packages/lib/types"
+    },
+    {
       "name": "lib/message-states",
       "path": "packages/lib/message-states"
     },

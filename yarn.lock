@@ -5754,6 +5754,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@vscodegraphqlexplorer/lib-types@workspace:packages/lib/types":
+  version: 0.0.0-use.local
+  resolution: "@vscodegraphqlexplorer/lib-types@workspace:packages/lib/types"
+  dependencies:
+    runtypes: 6.5.1
+  languageName: unknown
+  linkType: soft
+
 "@vscodegraphqlexplorer/repo@workspace:.":
   version: 0.0.0-use.local
   resolution: "@vscodegraphqlexplorer/repo@workspace:."
@@ -18610,6 +18618,13 @@ fsevents@^1.2.7:
   dependencies:
     aproba: ^1.1.1
   checksum: c4541e18b5e056af60f398f2f1b3d89aae5c093d1524bf817c5ee68bcfa4851ad9976f457a9aea135b1d0d72ee9a91c386e3d136bcd95b699c367cd09c70be53
+  languageName: node
+  linkType: hard
+
+"runtypes@npm:6.5.1":
+  version: 6.5.1
+  resolution: "runtypes@npm:6.5.1"
+  checksum: 1ac1c4ad74c739356255323e4748c96f4e7b44cee44e917c66089668c93228222b2b8ef8571b8fcee9280c514ecf2b4eba94d39182fc0458d8eaa0be794ef758
   languageName: node
   linkType: hard
 

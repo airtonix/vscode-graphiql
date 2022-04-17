@@ -27,26 +27,32 @@ type VscodeGraphQLExplorerProps = Omit<
   disableExplorer?: boolean;
   disableConnectionEditor?: boolean;
   schema: string;
+  host?: string;
+  token?: string;
+  onSaveConnectionClick: (connection: {
+    host?: string;
+    token?: string;
+  }) => Promise<void>;
 };
-
 type VscodeGraphQLExplorerState = {
   query?: string;
   disableExplorer?: boolean;
   explorerIsOpen?: boolean;
   codeExporterIsOpen?: boolean;
   connectionConfigIsOpen?: boolean;
-  connectionToken?: string;
-  connectionUrl?: string;
 };
 
 export const VscodeGraphQLExplorer = ({
   schema,
+  host,
+  token,
   defaultQuery,
   disableExplorer,
   disableConnectionEditor,
   onEditOperationName,
   onEditQuery,
   onEditVariables,
+  onSaveConnectionClick,
 }: VscodeGraphQLExplorerProps) => {
   const [state, setState] = useState<VscodeGraphQLExplorerState>({
     query: defaultQuery,
@@ -57,8 +63,8 @@ export const VscodeGraphQLExplorer = ({
   });
   const GqlSchema = useSchema(schema);
   const fetcher = useFetch({
-    token: state.connectionToken,
-    url: state.connectionUrl,
+    token,
+    url: host,
   });
 
   const isReady = !!schema && !!fetcher;
@@ -174,11 +180,10 @@ export const VscodeGraphQLExplorer = ({
       connectionConfigIsOpen: !state.connectionConfigIsOpen,
     });
   };
-  const handleSaveConnectionConfig = (data: ConnectionConfigFormData) => {
+  const handleSaveConnectionConfig = async (data: ConnectionConfigFormData) => {
+    await onSaveConnectionClick({ host: data.uri, token: data.token });
     setState({
       ...state,
-      connectionToken: data.token,
-      connectionUrl: data.uri,
       connectionConfigIsOpen: false,
     });
   };

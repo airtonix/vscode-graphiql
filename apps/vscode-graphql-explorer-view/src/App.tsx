@@ -2,9 +2,18 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { VscodeGraphQLExplorer } from './components/VscodeGraphQLExplorer';
 import { MessageStates } from '@vscodegraphqlexplorer/lib-message-states';
+import { SetSchemaMessage } from '@vscodegraphqlexplorer/lib-types';
+import type { SetSchemaMessageKind } from '@vscodegraphqlexplorer/lib-types';
+import { vscode } from './services/VscodeApi';
 
 const App = () => {
-  const [schema, setSchema] = useState('');
+  const [state, setState] = useState<SetSchemaMessageKind['payload']>({
+    schema: '',
+    connection: {
+      host: '',
+      token: '',
+    },
+  });
 
   useEffect(() => {
     if (!window) return;
@@ -15,16 +24,11 @@ const App = () => {
         const { command, payload } = data;
         if (!command) return;
 
-        switch (command) {
-          case MessageStates.EXPLORE_SCHEMA:
-            setSchema(payload);
-            break;
-
-          case MessageStates.IS_LOADING:
-            break;
-
-          default:
-            break;
+        if (SetSchemaMessage.guard(data)) {
+          setState({
+            ...state,
+            ...data.payload,
+          });
         }
       },
       false
@@ -33,7 +37,17 @@ const App = () => {
 
   return (
     <div className="App">
-      <VscodeGraphQLExplorer schema={schema} />
+      <VscodeGraphQLExplorer
+        schema={state.schema}
+        host={state.connection?.host}
+        token={state.connection?.token}
+        onSaveConnectionClick={async (connection) => {
+          vscode.postMessage({
+            command: MessageStates.SAVE_CONNECTION,
+            payload: connection,
+          });
+        }}
+      />
     </div>
   );
 };

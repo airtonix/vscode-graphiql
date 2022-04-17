@@ -25,7 +25,7 @@ module.exports = {
     const { domain } = await Gatherer([
       {
         type: 'select',
-        choices: [].domains.map((item) => item.name),
+        choices: domains.map((item) => item.name),
         name: 'domain',
         message: 'Package Group?',
       },
