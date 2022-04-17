@@ -1,4 +1,4 @@
-export PATH := "./node_modules/.bin:" + env_var('PATH')
+export PATH := justfile_directory() + "/node_modules/.bin:" + env_var('PATH')
 
 default:
     @just --list
@@ -17,8 +17,7 @@ change:
 build:
     preconstruct build
     just view build
-    cd apps/graphiql-ext
-    vsce package
+    cd apps/graphiql-ext && vsce package --yarn
 
 # Process recorded changesets
 release:

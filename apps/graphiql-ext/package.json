@@ -38,10 +38,10 @@
     "@types/vscode": "1.66.0",
     "@vscodegraphqlexplorer/lib-message-states": "0.0.1",
     "ts-node": "10.5.0",
-    "typescript": "4.5.5",
-    "vsce": "2.7.0"
+    "typescript": "4.5.5"
   },
   "peerDependencies": {
+    "vsce": "2.7.0",
     "vscode": "1.1.37"
   }
 }
