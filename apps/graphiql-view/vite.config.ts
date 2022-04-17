@@ -23,7 +23,7 @@ const config = defineConfig(({ command }) => {
     },
 
     build: {
-      outDir: '../../vscode-graphql-explorer-ext/out',
+      outDir: '../../graphiql-ext/dist',
     },
   };
 });
