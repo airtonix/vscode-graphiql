@@ -16,6 +16,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "ESNext",
+    "jsx": "react",
     "useDefineForClassFields": true
   },
   "files": [],
