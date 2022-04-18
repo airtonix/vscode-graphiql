@@ -1,0 +1,30 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "lib": ["es6"],
+    "module": "commonjs",
+    "moduleResolution": "Node",
+    "noEmit": true,
+    "noErrorTruncation": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es6",
+    "useDefineForClassFields": true
+  },
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}

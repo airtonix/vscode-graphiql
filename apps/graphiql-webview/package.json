@@ -1,0 +1,79 @@
+{
+    "name": "@vscodegrahphiql/webview",
+    "nx": {
+        "sourceRoot": "./src",
+        "projectType": "application",
+        "targets": {
+            "build": {
+                "executor": "@nxext/vite:build",
+                "outputs": [
+                    "{options.outputPath}"
+                ],
+                "defaultConfiguration": "production",
+                "options": {
+                    "outputPath": "dist/apps/webview",
+                    "baseHref": "/",
+                    "configFile": "@nxext/vite/plugins/vite"
+                },
+                "configurations": {
+                    "production": {
+                        "fileReplacements": [
+                            {
+                                "replace": "./src/environments/environment.ts",
+                                "with": "./src/environments/environment.prod.ts"
+                            }
+                        ]
+                    }
+                },
+                "dependsOn": [
+                    {
+                        "projects": "@vscodegraphiql/message-states"
+                    },
+                    {
+                        "projects": "@vscodegraphiql/message-types"
+                    }
+                ]
+            },
+            "serve": {
+                "executor": "@nxext/vite:dev",
+                "options": {
+                    "outputPath": "dist/apps/webview",
+                    "baseHref": "/",
+                    "configFile": "@nxext/vite/plugins/vite"
+                },
+                "configurations": {
+                    "production": {
+                        "fileReplacements": [
+                            {
+                                "replace": "./src/environments/environment.ts",
+                                "with": "./src/environments/environment.prod.ts"
+                            }
+                        ]
+                    }
+                }
+            },
+            "lint": {
+                "executor": "@nrwl/linter:eslint",
+                "outputs": [
+                    "{options.outputFile}"
+                ],
+                "options": {
+                    "lintFilePatterns": [
+                        "./**/*.{ts,js,tsx,jsx}"
+                    ]
+                }
+            },
+            "test": {
+                "executor": "@nrwl/jest:jest",
+                "outputs": [
+                    "coverage/apps/webview"
+                ],
+                "options": {
+                    "jestConfig": "./jest.config.js",
+                    "passWithNoTests": true
+                }
+            }
+        },
+        "tags": []
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "name": "@vscodegraphiql/message-states",
+    "nx": {
+        "sourceRoot": "./src",
+        "projectType": "library",
+        "tags": [],
+        "targets": {
+            "lint": {
+                "executor": "@nrwl/linter:eslint",
+                "outputs": [
+                    "{options.outputFile}"
+                ],
+                "options": {
+                    "lintFilePatterns": [
+                        ".//**/*.{ts,js}"
+                    ]
+                }
+            },
+            "test": {
+                "executor": "@nrwl/jest:jest",
+                "outputs": [
+                    "coverage/packages/message-states"
+                ],
+                "options": {
+                    "jestConfig": "./jest.config.js",
+                    "passWithNoTests": true
+                }
+            }
+        }
+    }
+}

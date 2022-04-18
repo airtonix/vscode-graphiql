@@ -9,8 +9,8 @@ default:
 
 # Project setup
 setup:
-    @echo 'Project Setup!'
-    yarn install
+    @echo '⛳ Begin project setup'
+    pnpm install
     manypkg check
     husky install
 
@@ -19,9 +19,7 @@ change:
     changeset
 
 build:
-    preconstruct build
-    just view build
-    just ext package
+    nx run-many --target=build --all
 
 # Process recorded changesets
 release:
@@ -31,14 +29,15 @@ prcheck:
     eslint . --ext tsx,ts
     jest --coverage --passWithNoTests
 
-generate *command='help':
-    hygen {{command}}
-
 clean:
     git clean -xdf
 
 fix:
+    @echo "👨‍⚕️ Fixing monorepo problems"
     manypkg fix
+
+nx *command='':
+    nx {{command}}
 
 test:
     jest
@@ -48,4 +47,4 @@ ext *command='dev':
     yarn workspace graphiqlexplorer {{command}}
 
 view *command='dev':
-    yarn workspace @vscodegraphqlexplorer/vscode-graphql-explorer-view {{command}}
+    yarn workspace graphiqlexplorer-view {{command}}

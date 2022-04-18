@@ -1,0 +1,31 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "lib": ["ESNext", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "noEmit": true,
+    "noErrorTruncation": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true
+  },
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}
