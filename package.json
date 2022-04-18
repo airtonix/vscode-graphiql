@@ -84,5 +84,6 @@
       "!./packages/tools/hygen-prompts",
       "./packages/**"
     ]
-  }
+  },
+  "packageManager": "yarn@3.2.0"
 }

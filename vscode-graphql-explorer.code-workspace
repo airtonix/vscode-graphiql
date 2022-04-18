@@ -34,8 +34,6 @@
       "source.fixAll.eslint": true
     },
     "typescript.preferences.importModuleSpecifier": "relative",
-    "typescript.tsdk": "APP/view/node_modules/typescript/lib",
-
     "[typescriptreact]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
@@ -48,7 +46,23 @@
       "watch": false,
       "onSave": "test-src-file"
     },
-    "jest.jestCommandLine": "yarn jest"
+    "jest.jestCommandLine": "yarn jest",
+    "files.exclude": {
+      "out": false, // set this to true to hide the "out" folder with the compiled JS files
+      "dist": false // set this to true to hide the "dist" folder with the compiled JS files
+    },
+    "search.exclude": {
+      "out": true, // set this to false to include "out" folder in search results
+      "dist": true, // set this to false to include "dist" folder in search results
+      "**/.yarn": true,
+      "**/.pnp.*": true
+    },
+    // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
+    "typescript.tsc.autoDetect": "off",
+    "eslint.nodePath": ".yarn/sdks",
+    "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
+    "typescript.tsdk": ".yarn/sdks/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true
   },
   "extensions": {
     "recommendations": [
