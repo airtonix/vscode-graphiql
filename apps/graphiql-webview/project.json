@@ -4,24 +4,17 @@
     "projectType": "application",
     "targets": {
         "build": {
-            "executor": "@nxext/vite:build",
+            "executor": "@nrwl/workspace:run-commands",
             "outputs": [
                 "{options.outputPath}"
             ],
             "defaultConfiguration": "production",
             "options": {
-                "baseHref": "http://localhost:3000",
-                "configFile": "apps/graphiql-webview/vite.config.ts"
+                "command": "DEBUG=vite-tsconfig-paths  vite build",
+                "cwd": "apps/graphiql-webview"
             },
             "configurations": {
-                "production": {
-                    "fileReplacements": [
-                        {
-                            "replace": "apps/graphiql-webview/src/environments/environment.ts",
-                            "with": "apps/graphiql-webview/src/environments/environment.prod.ts"
-                        }
-                    ]
-                }
+                "production": {}
             },
             "dependsOn": [
                 {
@@ -30,19 +23,13 @@
             ]
         },
         "serve": {
-            "executor": "@nxext/vite:dev",
+            "executor": "@nrwl/workspace:run-commands",
             "options": {
-                "configFile": "apps/graphiql-webview/vite.config.ts"
+                "command": "vite dev",
+                "cwd": "apps/graphiql-webview"
             },
             "configurations": {
-                "production": {
-                    "fileReplacements": [
-                        {
-                            "replace": "apps/graphiql-webview/src/environments/environment.ts",
-                            "with": "apps/graphiql-webview/src/environments/environment.prod.ts"
-                        }
-                    ]
-                }
+                "production": {}
             }
         },
         "lint": {

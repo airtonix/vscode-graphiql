@@ -7,6 +7,8 @@ module.exports = {
     '<rootDir>/packages/message-types',
     '<rootDir>/apps/graphiql-webview',
     '<rootDir>/packages/graphiql-extension',
+    '<rootDir>/packages/vite',
+    '<rootDir>/apps/vite-e2e',
   ],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',

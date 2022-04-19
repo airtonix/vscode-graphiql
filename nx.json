@@ -39,16 +39,6 @@
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/js"
-  },
-  "generators": {
-    "@nxext/vite": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      }
-    }
+    "defaultCollection": "@nrwl/workspace"
   }
 }

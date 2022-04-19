@@ -11,7 +11,7 @@ const config = defineConfig(({ command }) => {
   return {
     plugins: [
       tsconfigPaths({
-        projects: [`tsconfig.app.json`],
+        root: '../..',
       }),
       react(),
     ],

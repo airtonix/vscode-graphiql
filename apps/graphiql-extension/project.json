@@ -2,6 +2,9 @@
     "root": "apps/graphiql-extension",
     "sourceRoot": "apps/graphiql-extension/src",
     "projectType": "application",
+    "implicitDependencies": [
+        "graphiql-webview"
+    ],
     "targets": {
         "build": {
             "executor": "@nrwl/js:tsc",
@@ -13,6 +16,20 @@
                 "main": "apps/graphiql-extension/src/index.ts",
                 "outputPath": "dist/apps/vscodegraphiql",
                 "tsConfig": "apps/graphiql-extension/tsconfig.app.json"
+            },
+            "configurations": {
+                "production": {}
+            }
+        },
+        "package": {
+            "executor": "@nrwl/workspace:run-commands",
+            "outputs": [
+                "{options.outputPath}"
+            ],
+            "defaultConfiguration": "production",
+            "options": {
+                "command": "vsce package",
+                "cwd": ""
             },
             "dependsOn": [
                 {
