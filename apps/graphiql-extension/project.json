@@ -7,37 +7,14 @@
     ],
     "targets": {
         "build": {
-            "executor": "@nrwl/js:tsc",
+            "executor": "@vscode-devkit/nx:build",
             "outputs": [
                 "{options.outputPath}"
             ],
-            "defaultConfiguration": "production",
             "options": {
-                "main": "apps/graphiql-extension/src/index.ts",
+                "entryPoint": "apps/graphiql-extension/src/index.ts",
                 "outputPath": "dist/apps/vscodegraphiql",
-                "tsConfig": "apps/graphiql-extension/tsconfig.app.json"
-            },
-            "configurations": {
-                "production": {}
-            }
-        },
-        "package": {
-            "executor": "@nrwl/workspace:run-commands",
-            "outputs": [
-                "{options.outputPath}"
-            ],
-            "defaultConfiguration": "production",
-            "options": {
-                "command": "vsce package",
-                "cwd": ""
-            },
-            "dependsOn": [
-                {
-                    "projects": "dependencies"
-                }
-            ],
-            "configurations": {
-                "production": {}
+                "outputFile": "extension.js"
             }
         },
         "lint": {
