@@ -1,0 +1,9 @@
+{
+    "version": 2,
+    "projects": {
+        "message-states": "packages/message-states",
+        "message-types": "packages/message-types",
+        "graphiql-webview": "apps/graphiql-webview",
+        "graphiql-extension": "apps/graphiql-extension"
+    }
+}

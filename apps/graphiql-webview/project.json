@@ -1,0 +1,71 @@
+{
+    "root": "apps/graphiql-webview",
+    "sourceRoot": "apps/graphiql-webview/src",
+    "projectType": "application",
+    "targets": {
+        "build": {
+            "executor": "@nxext/vite:build",
+            "outputs": [
+                "{options.outputPath}"
+            ],
+            "defaultConfiguration": "production",
+            "options": {
+                "baseHref": "http://localhost:3000",
+                "configFile": "apps/graphiql-webview/vite.config.ts"
+            },
+            "configurations": {
+                "production": {
+                    "fileReplacements": [
+                        {
+                            "replace": "apps/graphiql-webview/src/environments/environment.ts",
+                            "with": "apps/graphiql-webview/src/environments/environment.prod.ts"
+                        }
+                    ]
+                }
+            },
+            "dependsOn": [
+                {
+                    "projects": "dependencies"
+                }
+            ]
+        },
+        "serve": {
+            "executor": "@nxext/vite:dev",
+            "options": {
+                "configFile": "apps/graphiql-webview/vite.config.ts"
+            },
+            "configurations": {
+                "production": {
+                    "fileReplacements": [
+                        {
+                            "replace": "apps/graphiql-webview/src/environments/environment.ts",
+                            "with": "apps/graphiql-webview/src/environments/environment.prod.ts"
+                        }
+                    ]
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": [
+                "{options.outputFile}"
+            ],
+            "options": {
+                "lintFilePatterns": [
+                    "apps/graphiql-webview/**/*.{ts,js,tsx,jsx}"
+                ]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": [
+                "coverage/apps/webview"
+            ],
+            "options": {
+                "jestConfig": "apps/graphiql-webview/jest.config.js",
+                "passWithNoTests": true
+            }
+        }
+    },
+    "tags": []
+}

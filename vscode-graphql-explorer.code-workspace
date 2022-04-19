@@ -1,18 +1,6 @@
 {
   "folders": [
     {
-      "name": "packages",
-      "path": "packages"
-    },
-    {
-      "name": "APP/webview",
-      "path": "./apps/graphiql-webview"
-    },
-    {
-      "name": "APP/extension",
-      "path": "./apps/graphiql-extension"
-    },
-    {
       "name": "repo",
       "path": "."
     }

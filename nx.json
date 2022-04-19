@@ -1,10 +1,6 @@
 {
   "extends": "@nrwl/workspace/presets/npm.json",
   "npmScope": "vscodegraphiql",
-  "workspaceLayout": {
-    "appsDir": "apps",
-    "libsDir": "packages"
-  },
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx/tasks-runners/default",
@@ -12,11 +8,8 @@
         "cacheableOperations": [
           "build",
           "test",
-          "lint",
-          "package",
-          "prepare"
-        ],
-        "parallel": 3
+          "lint"
+        ]
       }
     }
   },
@@ -35,18 +28,6 @@
         "target": "build",
         "projects": "dependencies"
       }
-    ],
-    "prepare": [
-      {
-        "target": "prepare",
-        "projects": "dependencies"
-      }
-    ],
-    "package": [
-      {
-        "target": "package",
-        "projects": "dependencies"
-      }
     ]
   },
   "affected": {
@@ -54,11 +35,11 @@
   },
   "pluginsConfig": {
     "@nrwl/js": {
-      "analyzeSourceFiles": false
+      "analyzeSourceFiles": true
     }
   },
   "cli": {
-    "defaultCollection": "@nxext/vite"
+    "defaultCollection": "@nrwl/js"
   },
   "generators": {
     "@nxext/vite": {
@@ -69,6 +50,5 @@
         "linter": "eslint"
       }
     }
-  },
-  "defaultProject": "graphiql-webview"
+  }
 }

@@ -1,0 +1,49 @@
+{
+    "root": "apps/graphiql-extension",
+    "sourceRoot": "apps/graphiql-extension/src",
+    "projectType": "application",
+    "targets": {
+        "build": {
+            "executor": "@nrwl/js:tsc",
+            "outputs": [
+                "{options.outputPath}"
+            ],
+            "defaultConfiguration": "production",
+            "options": {
+                "main": "apps/graphiql-extension/src/index.ts",
+                "outputPath": "dist/apps/vscodegraphiql",
+                "tsConfig": "apps/graphiql-extension/tsconfig.app.json"
+            },
+            "dependsOn": [
+                {
+                    "projects": "dependencies"
+                }
+            ],
+            "configurations": {
+                "production": {}
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": [
+                "{options.outputFile}"
+            ],
+            "options": {
+                "lintFilePatterns": [
+                    "apps/graphiql-extension/**/*.{ts,js,tsx,jsx}"
+                ]
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": [
+                "coverage/apps/extension"
+            ],
+            "options": {
+                "jestConfig": "apps/graphiql-extension/jest.config.js",
+                "passWithNoTests": true
+            }
+        }
+    },
+    "tags": []
+}
