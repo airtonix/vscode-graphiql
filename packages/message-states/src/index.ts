@@ -1,1 +1,1 @@
-export * from './message-states';
+export { MessageStates } from './message-states';

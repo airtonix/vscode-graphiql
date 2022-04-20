@@ -211,7 +211,10 @@ importers:
       yup: 0.32.11
 
   apps/graphiql-extension:
-    specifiers: {}
+    specifiers:
+      estrella: 1.4.1
+    dependencies:
+      estrella: 1.4.1
 
   apps/graphiql-webview:
     specifiers: {}
@@ -9410,6 +9413,12 @@ packages:
     dev: false
     optional: true
 
+  /esbuild/0.11.23:
+    resolution: {integrity: sha512-iaiZZ9vUF5wJV8ob1tl+5aJTrwDczlvGP0JoMmnpC2B0ppiMCu8n8gmy5ZTGl5bcG081XBVn+U+jP+mPFm5T5Q==}
+    hasBin: true
+    requiresBuild: true
+    dev: false
+
   /esbuild/0.13.8:
     resolution: {integrity: sha512-A4af7G7YZLfG5OnARJRMtlpEsCkq/zHZQXewgPA864l9D6VjjbH1SuFYK/OSV6BtHwDGkdwyRrX0qQFLnMfUcw==}
     hasBin: true
@@ -9994,6 +10003,16 @@ packages:
 
   /estree-walker/2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
+    dev: false
+
+  /estrella/1.4.1:
+    resolution: {integrity: sha512-h8vlec27CFxw+8uYFtgbvLvohx0v+IssCwb/haTQnI+kO2WaL0ApSTWxg49LneAtqrZkrnYVwXQB2ZgyIIAImw==}
+    engines: {node: '>=12.0.0'}
+    hasBin: true
+    dependencies:
+      esbuild: 0.11.23
+    optionalDependencies:
+      fsevents: 2.3.2
     dev: false
 
   /esutils/2.0.3:

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { MessageStates } from '@vscodegraphiql/message-states';
-import * as types from '@vscodegraphiql/message-types';
+import { SetSchemaMessage } from '@vscodegraphiql/message-types';
 
 import './App.css';
 import { GraphiQLApp } from './components/GraphiQLApp';
@@ -26,8 +26,9 @@ const App = () => {
         if (!origin.startsWith('vscode-webview://')) return;
         const { command, payload } = data;
         if (!command) return;
+        const isSchemaMessage = SetSchemaMessage.guard(data);
 
-        if (types.SetSchemaMessage.guard(data)) {
+        if (isSchemaMessage) {
           setState({
             ...state,
             ...data.payload,
@@ -48,6 +49,10 @@ const App = () => {
           vscode.postMessage({
             command: MessageStates.SAVE_CONNECTION,
             payload: connection,
+          });
+          setState({
+            ...state,
+            connection,
           });
         }}
       />

@@ -1,12 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "esModuleInterop": true,
     "isolatedModules": true,
     "lib": ["es6"],
     "module": "commonjs",
     "moduleResolution": "Node",
-    "noEmit": true,
+    "noEmit": false,
     "noErrorTruncation": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,

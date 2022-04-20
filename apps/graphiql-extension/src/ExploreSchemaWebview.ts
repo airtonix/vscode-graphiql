@@ -3,7 +3,6 @@ import { join } from 'path';
 
 import { ExtensionMode, Uri, ViewColumn, window, workspace } from 'vscode';
 import type { Disposable, ExtensionContext, WebviewPanel } from 'vscode';
-import { MessageStates } from '@vscodegraphiql/message-states';
 
 import {
   SECRETS_STORAGEKEY_CONNECTION_HOST,
@@ -11,6 +10,13 @@ import {
   WEBVIEW_RESOURCE_PATH,
   WEBVIEW_TAB_TITLE,
 } from './constants';
+
+export enum MessageStates {
+  SAVE_CONNECTION = 'SAVE_CONNECTION',
+  EXPLORE_SCHEMA = 'EXPLORE_SCHEMA',
+  IS_LOADING = 'IS_LOADING',
+  ALERT = 'ALERT',
+}
 
 /**
  * Manages react webview panels
@@ -71,14 +77,9 @@ export class ExploreSchemaWebview {
       }
     );
 
-    if (context.extensionMode === ExtensionMode.Development) {
-      this._panel.webview.html = this.developmentHtml();
-    } else {
-      // Set the webview's initial html content
-      this.getWebviewContent('index.html').then(
-        (content) => (this._panel.webview.html = content)
-      );
-    }
+    this.getPanelContent().then((content) => {
+      this._panel.webview.html = content;
+    });
 
     this.exploreSchema(filePath);
 
@@ -94,7 +95,7 @@ export class ExploreSchemaWebview {
             window.showErrorMessage(message.text);
             return;
           case MessageStates.SAVE_CONNECTION:
-            this.saveConnection(message.data);
+            this.saveConnection(message.payload);
             return;
         }
       },
@@ -108,11 +109,7 @@ export class ExploreSchemaWebview {
     this.exploreSchema(filePath);
   }
 
-  saveConnection({
-    connection,
-  }: {
-    connection: { host: string; token: string };
-  }) {
+  saveConnection(connection: { host: string; token: string }) {
     this.context.secrets.store(
       SECRETS_STORAGEKEY_CONNECTION_HOST,
       connection.host
@@ -157,6 +154,14 @@ export class ExploreSchemaWebview {
         x.dispose();
       }
     }
+  }
+  async getPanelContent() {
+    if (this.context.extensionMode === ExtensionMode.Development) {
+      return this.developmentHtml();
+    }
+
+    // Set the webview's initial html content
+    return await this.getWebviewContent('index.html');
   }
 
   getWebviewUri(filepath: string) {
@@ -209,8 +214,8 @@ export class ExploreSchemaWebview {
 
     </head>
     <body>
-      <div id="root"></div>
-      <script type="module" src="http://localhost:3000/index.tsx"></script>
+      <div id="app"></div>
+      <script type="module" src="http://localhost:3000/src/main.ts"></script>
     </body>
   </html>`;
 }
