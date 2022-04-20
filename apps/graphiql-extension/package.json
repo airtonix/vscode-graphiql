@@ -2,17 +2,26 @@
   "name": "vscode-graphiql",
   "version": "0.0.1",
   "publisher": "airtonix",
+  "author": {
+    "email": "airtonix@users.noreply.github.com",
+    "name": "Zenobius Jiricek"
+  },
   "private": true,
   "engines": {
     "vscode": "^1.66.0"
   },
-  "main": "extension.js",
+  "main": "dist/index.js",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/airtonix/vscode-graphiql"
   },
+  "scripts": {
+    "license": "pnpx license",
+    "dev": "tsc --watch --out"
+  },
   "activationEvents": [
-    "onCommand:vscodegraphqlexplorer.exploreSchema"
+    "onCommand:vscodegraphiql.exploreSchema"
   ],
   "contributes": {
     "commands": [

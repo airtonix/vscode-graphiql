@@ -1,4 +1,5 @@
 import type { ExtensionContext } from 'vscode';
+
 import { ExploreSchemaWebview } from './ExploreSchemaWebview';
 
 export const ExploreSchemaCommand = (context: ExtensionContext) => {

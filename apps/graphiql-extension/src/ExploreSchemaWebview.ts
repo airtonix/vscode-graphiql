@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import { join } from 'path';
-import { window, Uri, ViewColumn, ExtensionMode, workspace } from 'vscode';
-import type { ExtensionContext, WebviewPanel, Disposable } from 'vscode';
 
+import { ExtensionMode, Uri, ViewColumn, window, workspace } from 'vscode';
+import type { Disposable, ExtensionContext, WebviewPanel } from 'vscode';
 import { MessageStates } from '@vscodegraphiql/message-states';
 
 import {

@@ -1,4 +1,5 @@
-import { commands, ExtensionContext } from 'vscode';
+import { ExtensionContext, commands } from 'vscode';
+
 import { COMMAND_EXPLORE } from './constants';
 import { ExploreSchemaCommand } from './ExploreSchemaCommand';
 

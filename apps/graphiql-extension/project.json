@@ -3,7 +3,7 @@
     "sourceRoot": "apps/graphiql-extension/src",
     "projectType": "application",
     "implicitDependencies": [
-        "graphiql-webview"
+        "vscode-graphiql-webview"
     ],
     "targets": {
         "build": {
@@ -17,7 +17,8 @@
                 "outputFile": "extension.js",
                 "package": true,
                 "assets": [
-                    "package.json"
+                    "package.json",
+                    "LICENSE.md"
                 ]
             }
         },
