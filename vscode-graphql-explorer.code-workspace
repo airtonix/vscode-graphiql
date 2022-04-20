@@ -3,6 +3,14 @@
     {
       "name": "repo",
       "path": "."
+    },
+    {
+      "name": "vscode-graphiql",
+      "path": "apps/graphiql-extension"
+    },
+    {
+      "name": "vscode-graphiql-webview",
+      "path": "apps/graphiql-webview"
     }
   ],
   "settings": {

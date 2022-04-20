@@ -44,7 +44,7 @@ test:
 
 # AppShortcut: Extension VScode Graphql Explorer
 ext *command='dev':
-    yarn workspace graphiqlexplorer {{command}}
+    yarn workspace vscode-graphiql {{command}}
 
 view *command='dev':
-    yarn workspace graphiqlexplorer-view {{command}}
+    yarn workspace vscode-graphiql-webview {{command}}

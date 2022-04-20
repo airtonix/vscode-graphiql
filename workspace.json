@@ -1,7 +1,7 @@
 {
   "version": 2,
   "projects": {
-    "graphiql-extension": "apps/graphiql-extension",
-    "graphiql-webview": "apps/graphiql-webview"
+    "vscode-graphiql": "apps/graphiql-extension",
+    "vscode-graphiql-webview": "apps/graphiql-webview"
   }
 }

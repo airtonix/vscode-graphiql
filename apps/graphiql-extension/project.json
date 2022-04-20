@@ -14,19 +14,11 @@
             "options": {
                 "entryPoint": "src/index.ts",
                 "outputPath": "dist/apps/vscodegraphiql",
-                "outputFile": "extension.js"
-            }
-        },
-        "package": {
-            "executor": "@vscode-devkit/nx:build",
-            "outputs": [
-                "{options.outputPath}"
-            ],
-            "options": {
-                "entryPoint": "src/index.ts",
-                "outputPath": "dist/apps/vscodegraphiql",
                 "outputFile": "extension.js",
-                "package": true
+                "package": true,
+                "assets": [
+                    "package.json"
+                ]
             }
         },
         "lint": {

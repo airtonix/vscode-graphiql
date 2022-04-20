@@ -4,32 +4,15 @@
     "projectType": "application",
     "targets": {
         "build": {
-            "executor": "@nrwl/workspace:run-commands",
+            "executor": "@nxext/vite:build",
             "outputs": [
                 "{options.outputPath}"
-            ],
-            "defaultConfiguration": "production",
-            "options": {
-                "command": "DEBUG=vite-tsconfig-paths  vite build",
-                "cwd": "apps/graphiql-webview"
-            },
-            "configurations": {
-                "production": {}
-            },
-            "dependsOn": [
-                {
-                    "projects": "dependencies"
-                }
             ]
         },
         "serve": {
-            "executor": "@nrwl/workspace:run-commands",
+            "executor": "@nxext/vite:dev",
             "options": {
-                "command": "vite dev",
-                "cwd": "apps/graphiql-webview"
-            },
-            "configurations": {
-                "production": {}
+                "baseHref": "http://localhost:3000"
             }
         },
         "lint": {
