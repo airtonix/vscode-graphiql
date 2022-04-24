@@ -4,28 +4,38 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nxext/vite:build",
+      "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "outputPath": "dist/apps/vscodegraphiql"
+        "cwd": "apps/graphiql-webview",
+        "command": "pnpx vite build",
+        "outputPath": "dist/apps/graphiql-extension"
       },
-      "outputs": ["{options.outputPath}"]
+      "outputs": [
+        "{options.outputPath}"
+      ]
     },
     "serve": {
-      "executor": "@nxext/vite:dev",
+      "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "baseHref": "http://localhost:3000"
+        "command": "pnpx vite dev"
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/graphiql-webview/**/*.{ts,js,tsx,jsx}"]
+        "lintFilePatterns": [
+          "apps/graphiql-webview/**/*.{ts,js,tsx,jsx}"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/webview"],
+      "outputs": [
+        "coverage/apps/webview"
+      ],
       "options": {
         "jestConfig": "apps/graphiql-webview/jest.config.js",
         "passWithNoTests": true

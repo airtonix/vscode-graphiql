@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
+    "editorconfig.editorconfig",
     "amodio.tsl-problem-matcher",
     "arcanis.vscode-zipfs",
     "esbenp.prettier-vscode",

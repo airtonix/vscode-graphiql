@@ -1,7 +1,42 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
+  "plugins": ["@nrwl/nx", "prettier", "import"],
+  "rules": {
+    "@typescript-eslint/no-redeclare": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "array-callback-return": "error",
+    "eqeqeq": "error",
+    "prettier/prettier": "error",
+    "sort-imports": [
+      "error",
+      {
+        "ignoreDeclarationSort": true
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "pathGroups": [
+          {
+            "pattern": "@vscodegraphiql/**",
+            "group": "parent",
+            "patternOptions": { "matchBase": true },
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": []
+      }
+    ],
+
+    "no-console": [
+      "error",
+      {
+        "allow": ["error", "warn"]
+      }
+    ]
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],

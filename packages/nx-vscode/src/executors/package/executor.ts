@@ -1,4 +1,5 @@
-import { ExecutorContext, parseTargetString, runExecutor } from '@nrwl/devkit';
+import { ExecutorContext } from '@nrwl/devkit';
+
 import chalk from 'chalk';
 import * as cp from 'child_process';
 import * as path from 'path';

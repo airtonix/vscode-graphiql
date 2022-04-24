@@ -1,5 +1,5 @@
-import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 /**
@@ -11,13 +11,12 @@ const config = defineConfig(() => {
   return {
     plugins: [
       tsconfigPaths({
-        root: '../..',
+        root:'../..',
       }),
       react(),
     ],
-    root: '.',
     base: baseUrl,
-
+    root: './',
     server: {
       origin: baseUrl,
       hmr: {
@@ -33,6 +32,7 @@ const config = defineConfig(() => {
 
     build: {
       outDir: '../../dist/apps/vscodegraphiql',
+      emptyOutDir: false
     },
   };
 });

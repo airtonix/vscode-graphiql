@@ -1,5 +1,6 @@
-import { Union, Record, Literal, String, Optional } from 'runtypes';
+import { Literal, Optional, Record, String, Union } from 'runtypes';
 import type { Static } from 'runtypes';
+
 import { MessageStates } from '@vscodegraphiql/message-states';
 
 export const SetSchemaMessageNoConnection = Record({
@@ -12,17 +13,18 @@ export type SetSchemaMessageNoConnectionKind = Static<
   typeof SetSchemaMessageNoConnection
 >;
 
-export const SetSchemaMessageWithHostConnection =
-  SetSchemaMessageNoConnection.And(
-    Record({
+export const SetSchemaMessageWithHostConnection = SetSchemaMessageNoConnection.extend(
+  {
+    payload: SetSchemaMessageNoConnection.fields.payload.extend({
       connection: Optional(
         Record({
           host: String,
           token: Optional(String),
         })
       ),
-    })
-  );
+    }),
+  }
+);
 export type SetSchemaMessageWithHostConnectionKind = Static<
   typeof SetSchemaMessageWithHostConnection
 >;
@@ -31,3 +33,5 @@ export const SetSchemaMessage = Union(
   SetSchemaMessageNoConnection,
   SetSchemaMessageWithHostConnection
 );
+
+export type SetSchemaMessageKind = Static<typeof SetSchemaMessage>;

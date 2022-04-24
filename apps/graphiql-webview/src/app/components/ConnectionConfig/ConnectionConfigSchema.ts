@@ -1,5 +1,5 @@
 import { object, string } from 'yup';
-import type { SchemaOf, TypeOf } from 'yup';
+import type { SchemaOf, InferType } from 'yup';
 
 export const ConnectionConfigSchema = object({
   uri: string().required(),
@@ -9,4 +9,4 @@ export const ConnectionConfigSchema = object({
 export type ConnectionConfigSchemaKind = SchemaOf<
   typeof ConnectionConfigSchema
 >;
-export type ConnectionConfigFormData = TypeOf<typeof ConnectionConfigSchema>;
+export type ConnectionConfigFormData = InferType<typeof ConnectionConfigSchema>;

@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
 import { MessageStates } from '@vscodegraphiql/message-states';
-import { SetSchemaMessage } from '@vscodegraphiql/message-types';
+import { SetSchemaMessageWithHostConnection } from '@vscodegraphiql/message-types';
+import type { SetSchemaMessageWithHostConnectionKind } from '@vscodegraphiql/message-types';
 
 import './App.css';
 import { GraphiQLApp } from './components/GraphiQLApp';
 import { vscode } from './services/VscodeApi';
 
-type SetSchemaMessageKindPayload = types.SetSchemaMessageKind['payload'];
+type SetSchemaMessageWithHostConnectionKindPayload = SetSchemaMessageWithHostConnectionKind['payload'];
 
 const App = () => {
-  const [state, setState] = useState<SetSchemaMessageKindPayload>({
+  const [state, setState] = useState<SetSchemaMessageWithHostConnectionKindPayload>({
     schema: '',
-    connection: {
-      host: '',
-      token: '',
-    },
   });
 
   useEffect(() => {
@@ -26,12 +23,12 @@ const App = () => {
         if (!origin.startsWith('vscode-webview://')) return;
         const { command, payload } = data;
         if (!command) return;
-        const isSchemaMessage = SetSchemaMessage.guard(data);
+        const isSchemaMessage = SetSchemaMessageWithHostConnection.guard(data);
 
         if (isSchemaMessage) {
           setState({
             ...state,
-            ...data.payload,
+            ...payload,
           });
         }
       },

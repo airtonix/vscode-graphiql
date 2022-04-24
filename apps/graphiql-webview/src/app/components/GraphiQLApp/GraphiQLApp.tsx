@@ -28,7 +28,7 @@ type GraphiQLAppProps = Omit<GraphiQLProps, 'schema' | 'fetcher'> & {
   host?: string;
   token?: string;
   onSaveConnectionClick: (connection: {
-    host?: string;
+    host: string;
     token?: string;
   }) => Promise<void>;
 };
@@ -73,12 +73,14 @@ export const GraphiQLApp = ({
   const handleInspectOperation = useCallback(
     (cm: any, mousePos: { line: Number; ch: Number }) => {
       let parsedQuery;
+
       try {
         parsedQuery = parse(state.query || '');
       } catch (error) {
         console.error('Error parsing query: ', error);
-        return;
+        return null;
       }
+
       if (!parsedQuery) {
         console.error("Couldn't parse query document");
         return null;
@@ -169,12 +171,6 @@ export const GraphiQLApp = ({
     setState({ ...state, explorerIsOpen: !state.explorerIsOpen });
   };
 
-  const handleToggleCodeExporter = () => {
-    setState({
-      ...state,
-      codeExporterIsOpen: !state.codeExporterIsOpen,
-    });
-  };
   const handleToggleConnectionConfig = () => {
     setState({
       ...state,

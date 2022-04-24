@@ -10,16 +10,34 @@
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "cwd": "apps/graphiql-extension",
-        "command": "node ./estrella.build.js --outputPath=../../dist/apps/vscodegraphiql"
-      }
+        "command": "node ./estrella.build.js --outputPath=../../dist/apps/graphiql-extension",
+        "outputPath":[
+          "dist/apps/graphiql-extension"
+        ]
+      },
+      "outputs": [
+        "{options.outputPath}"
+      ]
     },
-    "build": {
+    "copyWebView": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "cp -R ./dist/apps/graphiql-webview/* ./dist/apps/graphiql-extension/",
+        "outputPath":[
+          "dist/apps/graphiql-extension"
+        ]
+      },
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "package": {
       "executor": "./packages/nx-vscode:package",
       "outputs": [
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/apps/vscodegraphiql"
+        "outputPath": "dist/apps/graphiql-extension"
       },
       "dependsOn": [
         {
