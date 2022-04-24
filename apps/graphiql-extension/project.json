@@ -1,48 +1,64 @@
 {
-    "root": "apps/graphiql-extension",
-    "sourceRoot": "apps/graphiql-extension/src",
-    "projectType": "application",
-    "implicitDependencies": [
-        "vscode-graphiql-webview"
-    ],
-    "targets": {
-        "build": {
-            "executor": "@vscode-devkit/nx:build",
-            "outputs": [
-                "{options.outputPath}"
-            ],
-            "options": {
-                "entryPoint": "src/index.ts",
-                "outputPath": "dist/apps/vscodegraphiql",
-                "outputFile": "extension.js",
-                "package": true,
-                "assets": [
-                    "package.json",
-                    "LICENSE.md"
-                ]
-            }
-        },
-        "lint": {
-            "executor": "@nrwl/linter:eslint",
-            "outputs": [
-                "{options.outputFile}"
-            ],
-            "options": {
-                "lintFilePatterns": [
-                    "apps/graphiql-extension/**/*.{ts,js,tsx,jsx}"
-                ]
-            }
-        },
-        "test": {
-            "executor": "@nrwl/jest:jest",
-            "outputs": [
-                "coverage/apps/extension"
-            ],
-            "options": {
-                "jestConfig": "apps/graphiql-extension/jest.config.js",
-                "passWithNoTests": true
-            }
-        }
+  "root": "apps/graphiql-extension",
+  "sourceRoot": "apps/graphiql-extension/src",
+  "projectType": "application",
+  "implicitDependencies": [
+    "vscode-graphiql-webview"
+  ],
+  "targets": {
+    "estrella": {
+      "executor": "@nrwl/workspace:run-script",
+      "options": {
+        "script": "compile"
+      }
     },
-    "tags": []
+    "build": {
+      "executor": "@vscode-devkit/nx:build",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "entryPoint": "src/index.ts",
+        "outputPath": "dist/apps/vscodegraphiql",
+        "outputFile": "extension.js",
+        "package": true,
+        "assets": [
+          "package.json",
+          "LICENSE.md"
+        ]
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        },
+        {
+          "target": "estrella",
+          "projects": "self"
+        }
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/graphiql-extension/**/*.{ts,js,tsx,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/apps/extension"
+      ],
+      "options": {
+        "jestConfig": "apps/graphiql-extension/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
 }

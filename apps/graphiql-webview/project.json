@@ -1,41 +1,33 @@
 {
-    "root": "apps/graphiql-webview",
-    "sourceRoot": "apps/graphiql-webview/src",
-    "projectType": "application",
-    "targets": {
-        "build": {
-            "executor": "@nxext/vite:build",
-            "outputs": [
-                "{options.outputPath}"
-            ]
-        },
-        "serve": {
-            "executor": "@nxext/vite:dev",
-            "options": {
-                "baseHref": "http://localhost:3000"
-            }
-        },
-        "lint": {
-            "executor": "@nrwl/linter:eslint",
-            "outputs": [
-                "{options.outputFile}"
-            ],
-            "options": {
-                "lintFilePatterns": [
-                    "apps/graphiql-webview/**/*.{ts,js,tsx,jsx}"
-                ]
-            }
-        },
-        "test": {
-            "executor": "@nrwl/jest:jest",
-            "outputs": [
-                "coverage/apps/webview"
-            ],
-            "options": {
-                "jestConfig": "apps/graphiql-webview/jest.config.js",
-                "passWithNoTests": true
-            }
-        }
+  "root": "apps/graphiql-webview",
+  "sourceRoot": "apps/graphiql-webview/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nxext/vite:build",
+      "outputs": ["{options.outputPath}"]
     },
-    "tags": []
+    "serve": {
+      "executor": "@nxext/vite:dev",
+      "options": {
+        "baseHref": "http://localhost:3000"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/graphiql-webview/**/*.{ts,js,tsx,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/webview"],
+      "options": {
+        "jestConfig": "apps/graphiql-webview/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
 }

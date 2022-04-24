@@ -19,7 +19,7 @@
   "scripts": {
     "license": "pnpx license",
     "dev": "node ./estrella.build.js --watch",
-    "build": "node ./estrella.build.js"
+    "compile": "node ./estrella.build.js"
   },
   "activationEvents": [
     "onCommand:vscodegraphiql.exploreSchema"
