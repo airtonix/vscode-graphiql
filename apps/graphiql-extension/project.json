@@ -13,19 +13,12 @@
       }
     },
     "build": {
-      "executor": "@vscode-devkit/nx:build",
+      "executor": "./packages/nx-vscode:package",
       "outputs": [
         "{options.outputPath}"
       ],
       "options": {
-        "entryPoint": "src/index.ts",
-        "outputPath": "dist/apps/vscodegraphiql",
-        "outputFile": "extension.js",
-        "package": true,
-        "assets": [
-          "package.json",
-          "LICENSE.md"
-        ]
+        "outputPath": "dist/apps/vscodegraphiql"
       },
       "dependsOn": [
         {
