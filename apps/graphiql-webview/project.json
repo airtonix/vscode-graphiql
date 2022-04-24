@@ -5,6 +5,9 @@
   "targets": {
     "build": {
       "executor": "@nxext/vite:build",
+      "options": {
+        "outputPath": "dist/apps/vscodegraphiql"
+      },
       "outputs": ["{options.outputPath}"]
     },
     "serve": {
