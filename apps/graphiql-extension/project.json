@@ -7,9 +7,10 @@
   ],
   "targets": {
     "estrella": {
-      "executor": "@nrwl/workspace:run-script",
+      "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "script": "compile"
+        "cwd": "apps/graphiql-extension",
+        "command": "node ./estrella.build.js --outputPath=../../dist/apps/vscodegraphiql"
       }
     },
     "build": {
