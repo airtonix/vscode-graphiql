@@ -15,7 +15,22 @@
     {
       "type": "npm",
       "script": "watch",
-      "problemMatcher": ["$tsc-watch"],
+      "problemMatcher": ["$tsc-watch", {
+        "owner": "typescript",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Watching files for changes",
+          "endsPattern": "^Wrote ([\\w\/\\.]+).*$"
+        },
+        "pattern":{
+          "regexp": ".*>.([\\w\/\\.]+)\\:(\\d+)\\:(\\d+)\\: (error|warning)\\:.([\\w\\W]+)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "message": 4
+        }
+      }],
+      "isBackground": true,
       "presentation": {
         "group": "watchers"
       },

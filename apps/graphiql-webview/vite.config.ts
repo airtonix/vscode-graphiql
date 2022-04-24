@@ -31,7 +31,7 @@ const config = defineConfig(() => {
     },
 
     build: {
-      outDir: '../../dist/apps/vscodegraphiql',
+      outDir: '../../dist/apps/graphiql-extension',
       emptyOutDir: false
     },
   };
