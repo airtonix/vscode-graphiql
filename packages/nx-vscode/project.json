@@ -3,37 +3,12 @@
   "sourceRoot": "packages/nx-vscode/src",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nrwl/workspace:run-script",
       "outputs": [
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/packages/nx-vscode",
-        "main": "packages/nx-vscode/src/index.ts",
-        "tsConfig": "packages/nx-vscode/tsconfig.lib.json",
-        "assets": [
-          "packages/nx-vscode/*.md",
-          {
-            "input": "./packages/nx-vscode/src",
-            "glob": "**/!(*.ts)",
-            "output": "./src"
-          },
-          {
-            "input": "./packages/nx-vscode/src",
-            "glob": "**/*.d.ts",
-            "output": "./src"
-          },
-          {
-            "input": "./packages/nx-vscode",
-            "glob": "generators.json",
-            "output": "."
-          },
-          {
-            "input": "./packages/nx-vscode",
-            "glob": "executors.json",
-            "output": "."
-          }
-        ]
+        "script": "compile"
       }
     },
     "lint": {

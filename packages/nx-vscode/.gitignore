@@ -1,0 +1,3 @@
+*.js
+!schema.d.ts
+*.d.ts
