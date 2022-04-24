@@ -2,7 +2,7 @@
 	"$schema": "http://json-schema.org/schema",
 	"executors": {
 		"package": {
-			"implementation": "./src/executors/package/executor.ts",
+			"implementation": "./src/executors/package/executor",
 			"schema": "./src/executors/package/schema.json",
 			"description": "Package a VSCode extension"
 		},
