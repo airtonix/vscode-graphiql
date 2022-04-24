@@ -1,0 +1,16 @@
+{
+  "root": "apps/nx-vscode-e2e",
+  "projectType": "application",
+  "sourceRoot": "apps/nx-vscode-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/nx-plugin:e2e",
+      "options": {
+        "target": "nx-vscode:build",
+        "jestConfig": "apps/nx-vscode-e2e/jest.config.js"
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["nx-vscode"]
+}

@@ -1,0 +1,22 @@
+{
+	"$schema": "http://json-schema.org/schema",
+	"cli": "nx",
+	"title": "Grammar executor",
+	"description": "",
+	"type": "object",
+	"properties": {
+		"name": {
+			"type": "string",
+			"description": "The output file will be named <name>.tmLanguage.json"
+		},
+		"entryPoint": {
+			"type": "string",
+			"description": "This file should export a `TMGrammar` object as its default export"
+		},
+		"outputPath": {
+			"type": "string",
+			"description": "Destination for the compiled JSON grammar"
+		}
+	},
+	"required": ["name", "entryPoint", "outputPath"]
+}

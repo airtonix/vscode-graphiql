@@ -9,6 +9,8 @@ module.exports = {
     '<rootDir>/packages/graphiql-extension',
     '<rootDir>/packages/vite',
     '<rootDir>/apps/vite-e2e',
+    '<rootDir>/packages/nx-vscode',
+    '<rootDir>/apps/nx-vscode-e2e',
   ],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',

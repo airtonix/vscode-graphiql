@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "nx-vscode",
+  "version": "0.0.1",
+  "generators": {
+    "nx-vscode": {
+      "factory": "./src/generators/nx-vscode/generator",
+      "schema": "./src/generators/nx-vscode/schema.json",
+      "description": "nx-vscode generator"
+    },
+    "nx": {
+      "factory": "./src/generators/extension/generator",
+      "schema": "./src/generators/extension/schema.json",
+      "description": "Vscode extension generator"
+    }
+  }
+}

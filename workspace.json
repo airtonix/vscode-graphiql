@@ -1,6 +1,8 @@
 {
   "version": 2,
   "projects": {
+    "nx-vscode": "packages/nx-vscode",
+    "nx-vscode-e2e": "apps/nx-vscode-e2e",
     "vscode-graphiql": "apps/graphiql-extension",
     "vscode-graphiql-webview": "apps/graphiql-webview"
   }

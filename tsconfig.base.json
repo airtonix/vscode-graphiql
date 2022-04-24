@@ -19,7 +19,8 @@
       "@vscodegraphiql/message-states": [
         "packages/message-states/src/index.ts"
       ],
-      "@vscodegraphiql/message-types": ["packages/message-types/src/index.ts"]
+      "@vscodegraphiql/message-types": ["packages/message-types/src/index.ts"],
+      "@vscodegraphiql/nx-vscode": ["packages/nx-vscode/src/index.ts"]
     }
   }
 }
