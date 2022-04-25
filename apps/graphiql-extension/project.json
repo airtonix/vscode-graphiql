@@ -6,12 +6,12 @@
     "vscode-graphiql-webview"
   ],
   "targets": {
-    "estrella": {
-      "executor": "@nrwl/workspace:run-commands",
+    "compile": {
+      "executor": "@nrwl/workspace:run-script",
       "options": {
         "cwd": "apps/graphiql-extension",
-        "command": "node ./estrella.build.js --outputPath=../../dist/apps/graphiql-extension",
-        "outputPath":[
+        "script": "compile",
+        "outputPath": [
           "dist/apps/graphiql-extension"
         ]
       },
@@ -23,7 +23,7 @@
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "cp -R ./dist/apps/graphiql-webview/* ./dist/apps/graphiql-extension/",
-        "outputPath":[
+        "outputPath": [
           "dist/apps/graphiql-extension"
         ]
       },
@@ -45,7 +45,7 @@
           "projects": "dependencies"
         },
         {
-          "target": "estrella",
+          "target": "compile",
           "projects": "self"
         }
       ]

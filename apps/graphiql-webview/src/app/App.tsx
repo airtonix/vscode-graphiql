@@ -7,11 +7,17 @@ import type { SetSchemaMessageWithHostConnectionKind } from '@vscodegraphiql/mes
 import './App.css';
 import { GraphiQLApp } from './components/GraphiQLApp';
 import { vscode } from './services/VscodeApi';
+import { LoadingDots } from './components/LoadingDots';
 
 type SetSchemaMessageWithHostConnectionKindPayload = SetSchemaMessageWithHostConnectionKind['payload'];
 
+type AppState = SetSchemaMessageWithHostConnectionKindPayload & {
+  isLoading?: boolean;
+};
+
 const App = () => {
-  const [state, setState] = useState<SetSchemaMessageWithHostConnectionKindPayload>({
+  const [state, setState] = useState<AppState>({
+    isLoading: true,
     schema: '',
   });
 
@@ -38,21 +44,25 @@ const App = () => {
 
   return (
     <div className="App">
-      <GraphiQLApp
-        schema={state.schema}
-        host={state.connection?.host}
-        token={state.connection?.token}
-        onSaveConnectionClick={async (connection) => {
-          vscode.postMessage({
-            command: MessageStates.SAVE_CONNECTION,
-            payload: connection,
-          });
-          setState({
-            ...state,
-            connection,
-          });
-        }}
-      />
+      {!state.isLoading ? (
+        <GraphiQLApp
+          schema={state.schema}
+          host={state.connection?.host}
+          token={state.connection?.token}
+          onSaveConnectionClick={async (connection) => {
+            vscode.postMessage({
+              command: MessageStates.SAVE_CONNECTION,
+              payload: connection,
+            });
+            setState({
+              ...state,
+              connection,
+            });
+          }}
+        />
+      ) : (
+        <LoadingDots />
+      )}
     </div>
   );
 };

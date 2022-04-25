@@ -96,6 +96,7 @@
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-promise": "6.0.0",
+    "prettier-eslint": "14.0.1",
     "estrella": "1.4.1",
     "graphiql": "1.8.6",
     "graphiql-explorer": "0.9.0",

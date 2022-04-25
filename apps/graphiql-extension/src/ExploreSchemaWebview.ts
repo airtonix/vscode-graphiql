@@ -1,6 +1,8 @@
 import * as fs from 'fs';
 import { join } from 'path';
 
+import { MessageStates } from '@vscodegraphiql/message-states';
+
 import { ExtensionMode, Uri, ViewColumn, window, workspace } from 'vscode';
 import type { Disposable, ExtensionContext, WebviewPanel } from 'vscode';
 
@@ -10,13 +12,6 @@ import {
   WEBVIEW_RESOURCE_PATH,
   WEBVIEW_TAB_TITLE,
 } from './constants';
-
-export enum MessageStates {
-  SAVE_CONNECTION = 'SAVE_CONNECTION',
-  EXPLORE_SCHEMA = 'EXPLORE_SCHEMA',
-  IS_LOADING = 'IS_LOADING',
-  ALERT = 'ALERT',
-}
 
 /**
  * Manages react webview panels
@@ -41,10 +36,11 @@ export class ExploreSchemaWebview {
     const column = activeTextEditor ? activeTextEditor.viewColumn : undefined;
     const file = Uri.parse(filePath);
 
+
     // If we already have a panel, show it.
     // Otherwise, create a new panel.
     if (ExploreSchemaWebview.currentPanel) {
-      ExploreSchemaWebview.currentPanel.reveal(column, file);
+      ExploreSchemaWebview.currentPanel.reveal(column);
     } else {
       ExploreSchemaWebview.currentPanel = new ExploreSchemaWebview(
         extensionPath,
@@ -81,7 +77,6 @@ export class ExploreSchemaWebview {
       this._panel.webview.html = content;
     });
 
-    this.exploreSchema(filePath);
 
     // Listen for when the panel is disposed
     // This happens when the user closes the panel or when the panel is closed programatically
@@ -97,6 +92,9 @@ export class ExploreSchemaWebview {
           case MessageStates.SAVE_CONNECTION:
             this.saveConnection(message.payload);
             return;
+          case MessageStates.OPEN_SCHEMA:
+            this.exploreSchema(filePath);
+            return;
         }
       },
       null,
@@ -104,9 +102,8 @@ export class ExploreSchemaWebview {
     );
   }
 
-  reveal(column: ViewColumn | undefined, filePath: Uri) {
+  reveal(column: ViewColumn | undefined) {
     this._panel.reveal(column);
-    this.exploreSchema(filePath);
   }
 
   saveConnection(connection: { host: string; token: string }) {
@@ -121,10 +118,6 @@ export class ExploreSchemaWebview {
   }
 
   async exploreSchema(filePath: Uri) {
-    this._panel.webview.postMessage({
-      command: MessageStates.IS_LOADING,
-    });
-
     const readData = await workspace.fs.readFile(filePath);
     const schema = Buffer.from(readData).toString('utf8');
     const host = await this.context.secrets.get('connectionHost');
