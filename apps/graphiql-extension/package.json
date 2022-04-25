@@ -10,7 +10,7 @@
   "engines": {
     "vscode": "^1.66.0"
   },
-  "main": "src/index.js",
+  "main": "./src/extension.js",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -20,7 +20,8 @@
     "license": "pnpx license",
     "ts:watch": "tsc --project ./tsconfig.app.json --watch",
     "ts:compile": "tsc --project ./tsconfig.app.json --outDir ../../dist/apps/graphiql-extension",
-    "compile": "node ./estrella.build.js --outputPath=./dist --sourceMaps"
+    "compile": "node ./estrella.build.js --outputPath=./src --sourcemap --copyAssets",
+    "watch": "node ./estrella.build.js --outputPath=./src --sourcemap --watch"
   },
   "activationEvents": [
     "onCommand:vscodegraphiql.exploreSchema"

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { ExtensionContext, commands } from 'vscode';
 
 import { COMMAND_EXPLORE } from './constants';
@@ -11,4 +12,6 @@ export function activate(context: ExtensionContext) {
   );
 }
 
-export function deactivate() {}
+export function deactivate() {
+  console.log('deactivated');
+}

@@ -29,9 +29,9 @@ export class VscodeApi<TState> implements WebviewApi<TState> {
   }
 
   setState<TNewState extends TState | undefined>(
-    newState: TNewState
+    newState: Partial<TNewState>
   ): TNewState {
-    const state = { ...this.state, ...newState };
+    const state = { ...this.state, ...newState } as TNewState;
     this.api.setState(state);
     return state;
   }
@@ -39,6 +39,7 @@ export class VscodeApi<TState> implements WebviewApi<TState> {
 
 export const vscode = new VscodeApi({
   schema: '',
+  query: '',
   connection: {
     host: '',
     token: '',

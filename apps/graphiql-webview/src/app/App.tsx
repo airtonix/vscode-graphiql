@@ -1,54 +1,79 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable no-console */
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { MessageStates } from '@vscodegraphiql/message-states';
-import { SetSchemaMessageWithHostConnection } from '@vscodegraphiql/message-types';
-import type { SetSchemaMessageWithHostConnectionKind } from '@vscodegraphiql/message-types';
 
-import './App.css';
 import { GraphiQLApp } from './components/GraphiQLApp';
 import { vscode } from './services/VscodeApi';
 import { LoadingDots } from './components/LoadingDots';
-
-type SetSchemaMessageWithHostConnectionKindPayload = SetSchemaMessageWithHostConnectionKind['payload'];
-
-type AppState = SetSchemaMessageWithHostConnectionKindPayload & {
-  isLoading?: boolean;
-};
+import styles from './App.module.css';
 
 const App = () => {
-  const [state, setState] = useState<AppState>({
-    isLoading: true,
+  const [state, setState] = useState({
     schema: '',
+    query: '',
+    variables: '',
+    connection: {
+      host: '',
+      token: '',
+    },
+    isLoading: true,
   });
+
+  const handleMessage = useCallback(({ data, origin }) => {
+    if (!origin.startsWith('vscode-webview://')) return;
+    if (!data.command) return;
+
+    if (data.payload) {
+      setState({
+        isLoading: false,
+        ...data.payload,
+      });
+    }
+  }, []);
 
   useEffect(() => {
     if (!window) return;
-    window.addEventListener(
-      'message',
-      ({ data, origin }) => {
-        if (!origin.startsWith('vscode-webview://')) return;
-        const { command, payload } = data;
-        if (!command) return;
-        const isSchemaMessage = SetSchemaMessageWithHostConnection.guard(data);
+    window.addEventListener('message', handleMessage, false);
 
-        if (isSchemaMessage) {
-          setState({
-            ...state,
-            ...payload,
-          });
-        }
-      },
-      false
-    );
-  }, []);
+    if (state.isLoading) {
+      vscode.postMessage({
+        command: MessageStates.RESTORE_STATE,
+      });
+    }
+
+    return () => window.removeEventListener('message', handleMessage);
+  }, [handleMessage, state]);
 
   return (
-    <div className="App">
+    <div className={styles.block}>
       {!state.isLoading ? (
         <GraphiQLApp
           schema={state.schema}
+          query={state.query}
           host={state.connection?.host}
           token={state.connection?.token}
+          variables={state.variables}
+          onEditVariables={async (variables) => {
+            vscode.postMessage({
+              command: MessageStates.SAVE_STATE,
+              payload: {
+                ...state,
+                variables,
+              },
+            });
+            setState({ ...state, variables });
+          }}
+          onEditQuery={async (query) => {
+            vscode.postMessage({
+              command: MessageStates.SAVE_STATE,
+              payload: {
+                ...state,
+                query,
+              },
+            });
+            setState({ ...state, query: query || '' });
+          }}
           onSaveConnectionClick={async (connection) => {
             vscode.postMessage({
               command: MessageStates.SAVE_CONNECTION,
@@ -56,7 +81,10 @@ const App = () => {
             });
             setState({
               ...state,
-              connection,
+              connection: {
+                host: connection.host,
+                token: connection.token || '',
+              },
             });
           }}
         />

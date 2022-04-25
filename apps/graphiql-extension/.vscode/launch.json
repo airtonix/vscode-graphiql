@@ -10,9 +10,7 @@
       "type": "extensionHost",
       "request": "launch",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
-      "outFiles": ["${workspaceFolder}/dist/*.js"],
-      "preLaunchTask": "npm watch",
-
+      "outFiles": ["${workspaceFolder}/src/*.js"]
     },
     {
       "name": "Extension Tests",

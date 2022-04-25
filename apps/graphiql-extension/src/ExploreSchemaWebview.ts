@@ -90,8 +90,11 @@ export class ExploreSchemaWebview {
           case MessageStates.SAVE_CONNECTION:
             this.saveConnection(message.payload);
             return;
-          case MessageStates.OPEN_SCHEMA:
+          case MessageStates.RESTORE_STATE:
             this.exploreSchema(filePath);
+            return;
+          case MessageStates.SAVE_STATE:
+            this.saveState(message.payload);
             return;
         }
       },
@@ -115,15 +118,23 @@ export class ExploreSchemaWebview {
     );
   }
 
+  async saveState(state: object) {
+    this.context.workspaceState.update(`${this.filePath}__state`, state);
+  }
+
   async exploreSchema(filePath: Uri) {
     const readData = await workspace.fs.readFile(filePath);
     const schema = Buffer.from(readData).toString('utf8');
     const host = await this.context.secrets.get('connectionHost');
     const token = await this.context.secrets.get('connectionToken');
+    const state = this.context.workspaceState.get(
+      `${filePath}__state`
+    ) as object;
 
     this._panel.webview.postMessage({
       command: MessageStates.EXPLORE_SCHEMA,
       payload: {
+        ...state,
         schema,
         connection: {
           host,

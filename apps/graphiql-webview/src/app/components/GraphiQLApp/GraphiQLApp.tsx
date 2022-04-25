@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { useMemo, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import GraphiQL from 'graphiql';
 import type { GraphiQLProps } from 'graphiql';
-import { parse, buildSchema } from 'graphql';
+import { buildSchema, parse } from 'graphql';
 
 //@ts-ignore
 import GraphiQLExplorer from 'graphiql-explorer';
@@ -44,7 +44,8 @@ export const GraphiQLApp = ({
   schema,
   host,
   token,
-  defaultQuery,
+  query,
+  variables,
   disableExplorer,
   disableConnectionEditor,
   onEditOperationName,
@@ -53,16 +54,17 @@ export const GraphiQLApp = ({
   onSaveConnectionClick,
 }: GraphiQLAppProps) => {
   const [state, setState] = useState<GraphiQLAppState>({
-    query: defaultQuery,
     disableExplorer,
     explorerIsOpen: true,
     codeExporterIsOpen: false,
     connectionConfigIsOpen: false,
   });
+
   const GqlSchema = useMemo(() => {
     if (!schema) return;
     return buildSchema(schema);
   }, [schema]);
+
   const fetcher = useFetch({
     token,
     url: host,
@@ -71,7 +73,7 @@ export const GraphiQLApp = ({
   const isReady = !!schema && !!fetcher;
 
   const handleInspectOperation = useCallback(
-    (cm: any, mousePos: { line: Number; ch: Number }) => {
+    (cm: any, mousePos: { line: number; ch: number }) => {
       let parsedQuery;
 
       try {
@@ -86,17 +88,17 @@ export const GraphiQLApp = ({
         return null;
       }
 
-      var token = cm.getTokenAt(mousePos);
-      var start = { line: mousePos.line, ch: token.start };
-      var end = { line: mousePos.line, ch: token.end };
-      var relevantMousePos = {
+      const token = cm.getTokenAt(mousePos);
+      const start = { line: mousePos.line, ch: token.start };
+      const end = { line: mousePos.line, ch: token.end };
+      const relevantMousePos = {
         start: cm.indexFromPos(start),
         end: cm.indexFromPos(end),
       };
 
-      var position = relevantMousePos;
+      const position = relevantMousePos;
 
-      var def = parsedQuery.definitions.find((definition) => {
+      const def = parsedQuery.definitions.find((definition) => {
         if (!definition.loc) {
           console.log('Missing location information for definition');
           return false;
@@ -113,23 +115,23 @@ export const GraphiQLApp = ({
         return null;
       }
 
-      var operationKind =
+      const operationKind =
         def.kind === 'OperationDefinition'
           ? def.operation
           : def.kind === 'FragmentDefinition'
           ? 'fragment'
           : 'unknown';
 
-      var operationName =
+      const operationName =
         def.kind === 'OperationDefinition' && !!def.name
           ? def.name.value
           : def.kind === 'FragmentDefinition' && !!def.name
           ? def.name.value
           : 'unknown';
 
-      var selector = `.graphiql-explorer-root #${operationKind}-${operationName}`;
+      const selector = `.graphiql-explorer-root #${operationKind}-${operationName}`;
 
-      var el = document.querySelector(selector);
+      const el = document.querySelector(selector);
       el && el.scrollIntoView();
     },
     []
@@ -163,7 +165,6 @@ export const GraphiQLApp = ({
   };
 
   const handleEditQuery = (query?: string) => {
-    setState({ ...state, query });
     if (typeof onEditQuery === 'function') onEditQuery(query);
   };
 
@@ -191,7 +192,7 @@ export const GraphiQLApp = ({
         <div className={classNames(styles.explorer)}>
           <GraphiQLExplorer
             schema={GqlSchema}
-            query={state.query}
+            query={query}
             onEdit={handleEditQuery}
             explorerIsOpen={state.explorerIsOpen}
             onToggleExplorer={handleToggleExplorer}
@@ -206,13 +207,14 @@ export const GraphiQLApp = ({
           onCloseClick={handleToggleConnectionConfig}
         />
       )}
-      {!!schema ? null : <NoSchemaError />}
+      {schema ? null : <NoSchemaError />}
       {!isReady ? null : (
         <GraphiQL
           ref={graphiQLRef}
           fetcher={fetcher}
           schema={GqlSchema}
-          query={state.query}
+          query={query}
+          variables={variables}
           onEditQuery={handleEditQuery}
           onEditVariables={onEditVariables}
           onEditOperationName={onEditOperationName}
