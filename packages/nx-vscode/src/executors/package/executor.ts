@@ -1,8 +1,9 @@
-import { ExecutorContext } from '@nrwl/devkit';
-
-import chalk from 'chalk';
+/* eslint-disable no-console */
 import * as cp from 'child_process';
 import * as path from 'path';
+
+import { ExecutorContext } from '@nrwl/devkit';
+import chalk from 'chalk';
 
 import CLIOptions from './schema';
 
@@ -52,7 +53,10 @@ function packageExtension(opts: Options) {
       shell: true,
       stdio: 'inherit',
     })
-      .on('error', reject)
+      .on('error', (error) => {
+        console.error(error.message);
+        reject(error);
+      })
       .on('close', (code) => {
         if (code) reject();
         else resolve();

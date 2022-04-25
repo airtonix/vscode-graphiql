@@ -5,24 +5,27 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 /**
  * @type {import('vite').UserConfig}
  */
-const config = defineConfig(() => {
-  const baseUrl = 'http://localhost:3000';
+const config = defineConfig(({ command, mode }) => {
+  const isLocalDev = command === 'serve';
+  const baseUrl = isLocalDev ? 'http://localhost:3000' : '/';
 
   return {
     plugins: [
       tsconfigPaths({
-        root:'../..',
+        root: '../..',
       }),
       react(),
     ],
     base: baseUrl,
     root: './',
-    server: {
-      origin: baseUrl,
-      hmr: {
-        host: 'localhost',
-      },
-    },
+    server: isLocalDev
+      ? {
+          origin: baseUrl,
+          hmr: {
+            host: 'localhost',
+          },
+        }
+      : undefined,
 
     css: {
       modules: {
@@ -32,7 +35,7 @@ const config = defineConfig(() => {
 
     build: {
       outDir: '../../dist/apps/graphiql-extension',
-      emptyOutDir: false
+      emptyOutDir: false,
     },
   };
 });

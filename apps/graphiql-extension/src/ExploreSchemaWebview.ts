@@ -168,7 +168,7 @@ export class ExploreSchemaWebview {
 
   getWebviewUri(filepath: string) {
     return this._panel.webview
-      .asWebviewUri(Uri.file(join(this.extensionPath, 'dist', filepath)))
+      .asWebviewUri(Uri.file(join(this.extensionPath, filepath)))
       .toString();
   }
 

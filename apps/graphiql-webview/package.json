@@ -1,5 +1,5 @@
 {
-  "name": "vscode-graphiql-webview",
+  "name": "@vscodegraphiql/webview",
   "version": "0.0.1",
   "private": true,
   "scripts": {

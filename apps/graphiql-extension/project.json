@@ -10,19 +10,7 @@
       "executor": "@nrwl/workspace:run-script",
       "options": {
         "script": "compile",
-        "outputPath": "dist/apps/graphiql-extension"
-      },
-      "outputs": [
-        "{options.outputPath}"
-      ]
-    },
-    "copyWebView": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "command": "cp -R ./dist/apps/graphiql-webview/* ./dist/apps/graphiql-extension/",
-        "outputPath": [
-          "dist/apps/graphiql-extension"
-        ]
+        "outputPath": "../../dist/apps/graphiql-extension"
       },
       "outputs": [
         "{options.outputPath}"

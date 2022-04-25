@@ -36,7 +36,14 @@ build({
     const pkg = require(`${__dirname}/package.json`);
     fs.writeFileSync(
       `${opts.outputPath}/package.json`,
-      JSON.stringify({ ...pkg, main: './extension.js' }, null, 2)
+      JSON.stringify(
+        {
+          ...pkg,
+          ...pkg.packaging.template,
+        },
+        null,
+        2
+      )
     );
     console.log(`Updated: package.json`);
   },

@@ -7,7 +7,7 @@
       "executor": "@nrwl/workspace:run-script",
       "options": {
         "script": "compile",
-        "outDir": "dist/apps/graphiql-extension"
+        "outDir": "../../dist/apps/graphiql-extension"
       },
       "outputs": [
         "{options.outDir}"

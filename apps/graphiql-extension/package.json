@@ -1,5 +1,5 @@
 {
-  "name": "vscode-graphiql",
+  "name": "@vscodegraphiql/extension",
   "version": "0.0.1",
   "publisher": "airtonix",
   "author": {
@@ -20,6 +20,12 @@
     "license": "pnpx license",
     "compile": "node ./estrella.build.js --copyAssets",
     "watch": "node ./estrella.build.js --outputPath=./src --watch"
+  },
+  "packaging": {
+    "template": {
+      "name": "vscode-graphiql",
+      "main": "./extension.js"
+    }
   },
   "activationEvents": [
     "onCommand:vscodegraphiql.exploreSchema"
