@@ -1,13 +1,22 @@
-# Grapqhl Explorer
+# VScode GraphQL Explorer
 
-This is an NX monorepo. Know what this means before contributing.
+This VScode extension will allow you to explore your locally stored `*.graphql` typedef schema files with GraphiQL.
 
-## Setup
+This is done by:
+1. right clicking a `*.graphql` (or any file associated with the `GraphQL` file grammar type) and,
+2. choosing `Explore Schema`
 
-1. have asdf installed with plugins:
-        1. asdf-nodejs
-        2. asdf-pnpm
-        3. asdf plugin add just https://github.com/heliumbrain/asdf-just
+## Features
 
-2. `asdf install`
-3. `just setup`
+- doesn't rely on network connection to server.
+- supports monorepos by focusing on local `.schema` files.
+- server connection config UI if you want to run your queries against a server.
+- supports simple jwt token auth at the moment.
+- queries, variables, headers remembered per file.
+
+## Roadmap
+
+- [ ] workspace server connection profiles
+- [ ] global server connection profiles
+- [ ] configurable server authentication strategies (basic auth, oauth, etc)
+- [ ] other ways to launch graphiql panel (command pallete, file pane toolbar)
