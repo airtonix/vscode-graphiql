@@ -35,6 +35,26 @@
         }
       ]
     },
+    "publish": {
+      "executor": "./packages/nx-vscode:package",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/graphiql-extension",
+        "publish": true
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        },
+        {
+          "target": "compile",
+          "projects": "self"
+        }
+      ]
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": [

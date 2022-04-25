@@ -12,6 +12,10 @@
 		"install": {
 			"type": "boolean",
 			"description": "Install the local `.vsix` file after building. Implies `package=true`."
+		},
+		"publish": {
+			"type": "boolean",
+			"description": "Publish the local `.vsix` file after building. Implies `package=true`."
 		}
 	},
 	"required": [

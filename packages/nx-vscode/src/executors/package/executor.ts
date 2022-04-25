@@ -7,29 +7,41 @@ import chalk from 'chalk';
 
 import CLIOptions from './schema';
 
-interface Options extends CLIOptions {
-  projectRoot: string;
+async function getVsixFileName(opts: Options) {
+  const outPathRel = path.relative(__dirname, opts.outputPath);
+  const pkgRel = path.join(outPathRel, 'package.json');
+  const { name, version } = await import(pkgRel);
+  return `"${name}-${version}.vsix"`;
 }
 
-export default async function (opts: CLIOptions, ctx: ExecutorContext) {
-  try {
-    const options = normalizeOptions(opts, ctx);
-    await packageExtension(options);
-    if (options.install) {
-      await installExtension(options);
-    }
+function vsceCli(opts: Options, ...args: string[]) {
+  return new Promise<void>((resolve, reject) => {
+    cp.spawn('npx vsce', args, {
+      cwd: opts.outputPath,
+      shell: true,
+      stdio: 'inherit',
+    })
+      .on('error', reject)
+      .on('close', (code) => {
+        if (code) reject();
+        else resolve();
+      });
+  });
+}
 
-    return { success: true };
-  } catch (err) {
-    const message =
-      err instanceof Error ? err.stack || err.message : 'Unknown error';
-
-    console.log(chalk.bold.redBright(message));
-    return {
-      success: false,
-      reason: message,
-    };
-  }
+function vscodeCli(opts: Options, ...args: string[]) {
+  return new Promise<void>((resolve, reject) => {
+    cp.spawn('code', args, {
+      cwd: opts.outputPath,
+      shell: true,
+      stdio: 'inherit',
+    })
+      .on('error', reject)
+      .on('close', (code) => {
+        if (code) reject();
+        else resolve();
+      });
+  });
 }
 
 function normalizeOptions(opts: CLIOptions, ctx: ExecutorContext): Options {
@@ -46,40 +58,34 @@ function normalizeOptions(opts: CLIOptions, ctx: ExecutorContext): Options {
   };
 }
 
-function packageExtension(opts: Options) {
-  return new Promise<void>((resolve, reject) => {
-    cp.spawn('npx vsce', ['package'], {
-      cwd: opts.outputPath,
-      shell: true,
-      stdio: 'inherit',
-    })
-      .on('error', (error) => {
-        console.error(error.message);
-        reject(error);
-      })
-      .on('close', (code) => {
-        if (code) reject();
-        else resolve();
-      });
-  });
+interface Options extends CLIOptions {
+  projectRoot: string;
 }
 
-async function installExtension(opts: Options) {
-  const outPathRel = path.relative(__dirname, opts.outputPath);
-  const pkgRel = path.join(outPathRel, 'package.json');
-  const { name, version } = await import(pkgRel);
-  const vsix = `"${name}-${version}.vsix"`;
+export default async function (opts: CLIOptions, ctx: ExecutorContext) {
+  try {
+    const options = normalizeOptions(opts, ctx);
+    await vsceCli(options, 'package');
 
-  return new Promise<void>((resolve, reject) => {
-    cp.spawn('code', ['--install-extension', vsix], {
-      cwd: opts.outputPath,
-      shell: true,
-      stdio: 'inherit',
-    })
-      .on('error', reject)
-      .on('close', (code) => {
-        if (code) reject();
-        else resolve();
-      });
-  });
+    if (options.install) {
+      const vsix = await getVsixFileName(options);
+      return await vscodeCli(options, '--install-extension', vsix);
+    }
+
+    if (options.publish) {
+      await vsceCli(options, 'verify-pat');
+      await vsceCli(options, 'publish');
+    }
+
+    return { success: true };
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.stack || err.message : 'Unknown error';
+
+    console.log(chalk.bold.redBright(message));
+    return {
+      success: false,
+      reason: message,
+    };
+  }
 }
