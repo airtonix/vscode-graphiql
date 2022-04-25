@@ -25,6 +25,7 @@
     border-bottom: 1px solid var(--vscode-editorGroup-border);
     color: var(--vscode-foreground);
 }
+
 .block :global .graphiql-container .editorWrap .docExplorerShow:before {
     color: var(--vscode-foreground);
     border-color: currentColor;
@@ -33,7 +34,8 @@
 .block :global .graphiql-container .editorWrap .topBar .toolbar-button {
     color: var(--vscode-foreground);
     background: inherit;
-    border: 1px solid  var(--vscode-foreground);;
+    border: 1px solid var(--vscode-foreground);
+    ;
     box-shadow: none;
 }
 
@@ -51,9 +53,11 @@
     color: var(--vscode-foreground);
     box-shadow: none;
 }
+
 .block :global .docExplorerResizer {
     border-left: 2px solid var(--vscode-editorGroup-border);
 }
+
 .block :global .doc-explorer-title-bar {
     display: flex;
     flex-direction: row;
@@ -66,20 +70,24 @@
 
     color: inherit;
 }
+
 .block :global .doc-explorer-title-bar .doc-explorer-back {
     background: var(--vscode-editor-background);
     border-right: 1px solid var(--vscode-editorGroup-border);
     color: var(--vscode-foreground);
 }
+
 .block :global .doc-explorer-title-bar .doc-explorer-back:before {
     color: var(--vscode-foreground);
     border-color: currentColor;
 }
+
 .block :global .doc-explorer-title-bar .doc-explorer-title {
     font-weight: bold;
     align-self: start;
     display: flex;
 }
+
 .block :global .doc-explorer-title-bar .doc-explorer-rhs button {
     padding: 0;
     margin: 0;
@@ -102,6 +110,7 @@
     font-weight: normal;
     color: var(--vscode-tab-activeForeground);
 }
+
 .block :global .doc-explorer-rhs:hover {
 
     background: var(--vscode-toolbar-hoverBackground)
@@ -119,19 +128,43 @@
     border-top-color: var(--vscode-editorGroup-border) !important;
 }
 
+.block :global .doc-explorer-contents .graphiql-explorer-actions .toolbar-button {
+    color: var(--vscode-foreground);
+    background: inherit !important;
+    border: 1px solid var(--vscode-foreground);
+    ;
+    box-shadow: none;
+}
+
+.block :global .doc-explorer-contents .graphiql-explorer-actions select {
+    margin: 8px;
+    padding: 4px 8px;
+    display: flex;
+    flex-grow: 1;
+    width: 100% !important;
+    color: var(--vscode-input-foreground) !important;
+    background-color: var(--vscode-input-background) !important;
+    border-color: var(--vscode-input-border) !important;
+    border-width: 1px;
+    border-style: solid;
+}
+
 .block :global .doc-explorer-contents [aria-hidden=true] {
     display: none;
 }
+
 .block :global .doc-explorer-contents .search-box {
     margin: 0;
     padding: 0;
     border: 0;
     margin-bottom: 16px;
 }
+
 .block :global .doc-explorer-contents .search-box:before {
     top: 50%;
     transform: translate3d(5px, -50%, 0) rotate(-45deg);
 }
+
 .block :global .doc-explorer-contents .search-box input {
     padding: 8px 24px 8px 28px;
 
@@ -142,26 +175,32 @@
     border-style: solid;
 
 }
-.block :global .doc-explorer-contents .doc-type-description{
+
+.block :global .doc-explorer-contents .doc-type-description {
     color: inherit;
 }
 
 .block :global .doc-explorer-contents .linenumber {
     color: var(--vscode-editorLineNumber-foreground);
 }
+
 .block :global .doc-explorer-contents .doc-category-item .keyword {
     color: var(--vscode-symbolIcon-keywordForeground);
 }
+
 .block :global .doc-explorer-contents .doc-category-item .field-name {
     color: var(--vscode-symbolIcon-functionForeground);
 }
+
 .block :global .doc-explorer-contents .doc-category-item .type-name {
     color: var(--vscode-symbolIcon-keywordForeground);
 }
+
 .block :global .doc-explorer-contents .doc-category-item .arg-name {
     color: var(--vscode-symbolIcon-stringForeground);
 }
-    /**
+
+/**
  *  The Schema Explorer
  */
 .explorer {
@@ -181,9 +220,11 @@
     display: flex;
     align-items: center;
 }
+
 .explorer :global .graphiql-operation-title-bar span {
     flex-grow: 1;
 }
+
 .explorer :global .graphiql-operation-title-bar input {
     padding: 8px;
     display: flex;
@@ -195,14 +236,33 @@
     border-width: 1px;
     border-style: solid;
 }
+
 .explorer :global .graphiql-explorer-node svg path {
     fill: var(--vscode-foreground);
 }
+
 .explorer :global .graphiql-explorer-field-view {
     color: var(--vscode-symbolIcon-variableForeground) !important;
 }
+
 .explorer :global .graphiql-explorer-graphql-arguments span {
     color: var(--vscode-symbolIcon-typeParameterForeground) !important;
+}
+
+.explorer :global .graphiql-explorer-graphql-arguments input[type=text] {
+    color: var(--vscode-input-foreground) !important;
+    background-color: var(--vscode-input-background) !important;
+    border-color: var(--vscode-input-border) !important;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.explorer :global .graphiql-explorer-graphql-arguments button[type=submit] {
+    cursor: pointer;
+    padding: 8px;
+    color: var(--vscode-button-foreground) !important;
+    background-color: var(--vscode-button-background) !important;
+    border: none;
 }
 
 /**
@@ -210,34 +270,41 @@
  */
 .block :global .CodeMirror,
 .block :global .CodeMirror-gutters,
-.block :global .result-window .CodeMirror-gutters
-{
+.block :global .result-window .CodeMirror-gutters {
     background: var(--vscode-editorGutter-background) !important;
     border-color: var(--vscode-editorGroup-border);
     color: inherit;
 }
+
 .block :global .CodeMirror-linenumber {
     color: var(--vscode-editorLineNumber-foreground);
 }
+
 .block :global .CodeMirror .cm-keyword {
     color: var(--vscode-symbolIcon-keywordForeground);
 }
+
 .block :global .CodeMirror .cm-def {
     color: var(--vscode-symbolIcon-functionForeground);
 }
+
 .block :global .CodeMirror .cm-punctuation {
     color: var(--vscode-symbolIcon-keywordForeground);
 }
+
 .block :global .CodeMirror .cm-property {
     color: var(--vscode-symbolIcon-keywordForeground);
 }
+
 .block :global .CodeMirror .cm-string {
     color: var(--vscode-symbolIcon-stringForeground);
 }
+
 .block :global .CodeMirror-matchingbracket {
     color: var(--vscode-symbolIcon-keywordForeground);
     background-color: var(--vscode-editorBracketMatch-background);
 }
+
 .block :global .CodeMirror-lint-mark.CodeMirror-lint-mark-error {
     color: var(--vscode-editorError-foreground);
     background-image: none;
@@ -249,12 +316,15 @@
     border-top: 1px solid var(--vscode-editorGroup-border);
     background-color: var(--vscode-input-background) !important;
 }
-.block :global .graphiql-container .variable-editor-title-text { color: inherit;}
+
+.block :global .graphiql-container .variable-editor-title-text {
+    color: inherit;
+}
 
 /**
  *  The Response
  */
- .block :global .resultWrap {
+.block :global .resultWrap {
     border-color: 1px solid var(--vscode-editorGroup-border);
 }
 
