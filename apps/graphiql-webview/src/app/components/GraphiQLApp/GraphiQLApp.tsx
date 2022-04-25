@@ -4,8 +4,6 @@ import classNames from 'classnames';
 import GraphiQL from 'graphiql';
 import type { GraphiQLProps } from 'graphiql';
 import { buildSchema, parse } from 'graphql';
-
-//@ts-ignore
 import GraphiQLExplorer from 'graphiql-explorer';
 import 'graphiql/graphiql.min.css';
 import 'graphiql-with-extensions/graphiqlWithExtensions.css';
@@ -77,7 +75,7 @@ export const GraphiQLApp = ({
       let parsedQuery;
 
       try {
-        parsedQuery = parse(state.query || '');
+        parsedQuery = parse(query || '');
       } catch (error) {
         console.error('Error parsing query: ', error);
         return null;
@@ -100,7 +98,7 @@ export const GraphiQLApp = ({
 
       const def = parsedQuery.definitions.find((definition) => {
         if (!definition.loc) {
-          console.log('Missing location information for definition');
+          console.warn('Missing location information for definition');
           return false;
         }
 
@@ -134,7 +132,7 @@ export const GraphiQLApp = ({
       const el = document.querySelector(selector);
       el && el.scrollIntoView();
     },
-    []
+    [query]
   );
 
   const graphiQLRef = useRef<GraphiQL>(null);
@@ -154,7 +152,7 @@ export const GraphiQLApp = ({
       ...(editor.options.extraKeys || {}),
       'Shift-Alt-LeftClick': handleInspectOperation,
     });
-  }, [graphiQLRef.current]);
+  }, [handleInspectOperation]);
 
   const handlePrettifyClick = () => {
     withGraphiQL().handlePrettifyQuery();
