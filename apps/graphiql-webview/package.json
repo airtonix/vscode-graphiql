@@ -1,5 +1,9 @@
 {
   "name": "vscode-graphiql-webview",
   "version": "0.0.1",
-  "private": true
+  "private": true,
+  "scripts": {
+    "compile": "vite build",
+    "watch": "vite dev  --host"
+  }
 }

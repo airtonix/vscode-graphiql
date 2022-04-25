@@ -4,10 +4,9 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "@nrwl/workspace:run-script",
       "options": {
-        "cwd": "apps/graphiql-webview",
-        "command": "pnpx vite build",
+        "script": "compile",
         "outputPath": "dist/apps/graphiql-extension"
       },
       "outputs": [
@@ -15,9 +14,9 @@
       ]
     },
     "serve": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "@nrwl/workspace:run-script",
       "options": {
-        "command": "pnpx vite dev  --host"
+        "script": "watch"
       }
     },
     "lint": {
