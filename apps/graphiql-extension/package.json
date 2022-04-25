@@ -18,8 +18,9 @@
   },
   "scripts": {
     "license": "pnpx license",
-    "watch": "tsc --project ./tsconfig.app.json --watch",
-    "compile": "tsc --project ./tsconfig.app.json --outDir ../../dist/apps/graphiql-extension"
+    "ts:watch": "tsc --project ./tsconfig.app.json --watch",
+    "ts:compile": "tsc --project ./tsconfig.app.json --outDir ../../dist/apps/graphiql-extension",
+    "compile": "node ./estrella.build.js --outputPath=./dist --sourceMaps"
   },
   "activationEvents": [
     "onCommand:vscodegraphiql.exploreSchema"

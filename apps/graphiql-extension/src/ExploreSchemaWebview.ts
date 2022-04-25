@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import { join } from 'path';
 
-import { MessageStates } from '@vscodegraphiql/message-states';
-
 import { ExtensionMode, Uri, ViewColumn, window, workspace } from 'vscode';
 import type { Disposable, ExtensionContext, WebviewPanel } from 'vscode';
+
+import { MessageStates } from '@vscodegraphiql/message-states';
 
 import {
   SECRETS_STORAGEKEY_CONNECTION_HOST,
@@ -35,7 +35,6 @@ export class ExploreSchemaWebview {
     const { activeTextEditor } = window;
     const column = activeTextEditor ? activeTextEditor.viewColumn : undefined;
     const file = Uri.parse(filePath);
-
 
     // If we already have a panel, show it.
     // Otherwise, create a new panel.
@@ -76,7 +75,6 @@ export class ExploreSchemaWebview {
     this.getPanelContent().then((content) => {
       this._panel.webview.html = content;
     });
-
 
     // Listen for when the panel is disposed
     // This happens when the user closes the panel or when the panel is closed programatically
