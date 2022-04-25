@@ -9,11 +9,8 @@
     "compile": {
       "executor": "@nrwl/workspace:run-script",
       "options": {
-        "cwd": "apps/graphiql-extension",
         "script": "compile",
-        "outputPath": [
-          "dist/apps/graphiql-extension"
-        ]
+        "outputPath": "dist/apps/graphiql-extension"
       },
       "outputs": [
         "{options.outputPath}"
