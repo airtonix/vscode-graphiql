@@ -11,7 +11,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - run: git fetch origin master
+      - run: git fetch --no-tags --prune --depth=1 origin master
       - name: asdf setup
         uses: asdf-vm/actions/setup@v1.1.0
       - name: asdf install
@@ -37,11 +37,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-
 
-      - run: pnpm install --frozen-lockfile
-      - run: just nx workspace-lint
-      - run: just nx affected:typecheck
-      - run: just nx affected:lint
-      - run: just nx affected:test -- --ci --reporters=default --reporters=jest-junit
+      - name: pnpm install
+        if: steps.pnpm-cache.outputs.cache-hit != 'true'
+        run: pnpm install --frozen-lockfile
+      - name: Cache Nx
+        uses: actions/cache@v2
+        with:
+          path: node_modules/.cache/nx
+          key: cache-nx-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles(.tool-versions) }}-${{ github.sha }}
+          restore-keys: |
+            cache-nx-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles(.tool-versions) }}-
+            cache-nx-${{ hashFiles('pnpm-lock.yaml') }}-
+      - run: just nx workspace-lint --base=origin/master
+      - run: just nx affected --target=typecheck --base=origin/master
+      - run: just nx affected --target=lint --base=origin/master
+      - run: just nx affected --target=test -- --ci --reporters=default --reporters=jest-junit --base=origin/master
         env:
           JEST_JUNIT_OUTPUT_DIR: reports
           JEST_JUNIT_OUTPUT_NAME: jest-junit.xml
