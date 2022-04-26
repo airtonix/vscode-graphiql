@@ -55,6 +55,12 @@
         }
       ]
     },
+    "typecheck": {
+      "executor": "@nrwl/workspace:run-script",
+      "options": {
+        "script": "typecheck"
+      }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": [

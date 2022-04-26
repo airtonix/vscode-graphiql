@@ -5,6 +5,7 @@
   "scripts": {
     "compile": "vite build",
     "watch": "vite dev  --host",
-    "storybook": "start-storybook"
+    "storybook": "start-storybook",
+    "typecheck": "tsc --project tsconfig.app.json --noEmit"
   }
 }

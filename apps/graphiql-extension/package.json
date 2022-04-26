@@ -19,7 +19,8 @@
   "scripts": {
     "license": "pnpx license",
     "compile": "node ./estrella.build.js --copyAssets",
-    "watch": "node ./estrella.build.js --outputPath=./src --watch"
+    "watch": "node ./estrella.build.js --outputPath=./src --watch",
+    "typecheck": "tsc --project tsconfig.app.json --noEmit"
   },
   "packaging": {
     "template": {
