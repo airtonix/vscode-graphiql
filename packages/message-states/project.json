@@ -1,0 +1,5 @@
+{
+    "root": "packages/message-states",
+    "sourceRoot": "packages/message-states/src",
+    "projectType": "library"
+}

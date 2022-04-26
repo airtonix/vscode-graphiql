@@ -38,9 +38,10 @@ jobs:
             ${{ runner.os }}-pnpm-
 
       - run: pnpm install --frozen-lockfile
-      - run: just nx affected --target=typecheck
-      - run: just nx affected --target=lint
-      - run: just nx affected --target=test -- --ci --reporters=default --reporters=jest-junit
+      - run: just nx workspace-lint
+      - run: just nx affected:typecheck
+      - run: just nx affected:lint
+      - run: just nx affected:test -- --ci --reporters=default --reporters=jest-junit
         env:
           JEST_JUNIT_OUTPUT_DIR: reports
           JEST_JUNIT_OUTPUT_NAME: jest-junit.xml

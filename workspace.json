@@ -4,6 +4,8 @@
     "nx-vscode": "packages/nx-vscode",
     "nx-vscode-e2e": "apps/nx-vscode-e2e",
     "vscode-graphiql": "apps/graphiql-extension",
-    "vscode-graphiql-webview": "apps/graphiql-webview"
+    "vscode-graphiql-webview": "apps/graphiql-webview",
+    "message-states": "packages/message-states",
+    "message-types": "packages/message-types"
   }
 }
