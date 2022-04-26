@@ -8,7 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
+      - run: git fetch origin master
       - name: asdf setup
         uses: asdf-vm/actions/setup@v1.1.0
       - name: asdf install
