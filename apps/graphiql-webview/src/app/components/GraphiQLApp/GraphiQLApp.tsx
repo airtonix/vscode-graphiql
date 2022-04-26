@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
-import GraphiQL from 'graphiql';
+import type { Editor } from 'codemirror';
+import { GraphiQL } from 'graphiql';
 import type { GraphiQLProps } from 'graphiql';
 import { buildSchema, parse } from 'graphql';
 import GraphiQLExplorer from 'graphiql-explorer';
@@ -70,27 +71,27 @@ export const GraphiQLApp = ({
   const isReady = !!schema && !!fetcher;
 
   const handleInspectOperation = useCallback(
-    (cm: any, mousePos: { line: number; ch: number }) => {
+    (instance: Editor, mousePos: { line: number; ch: number }): void => {
       let parsedQuery;
 
       try {
         parsedQuery = parse(query || '');
       } catch (error) {
         console.error('Error parsing query: ', error);
-        return null;
+        return;
       }
 
       if (!parsedQuery) {
         console.error("Couldn't parse query document");
-        return null;
+        return;
       }
 
-      const token = cm.getTokenAt(mousePos);
+      const token = instance.getTokenAt(mousePos);
       const start = { line: mousePos.line, ch: token.start };
       const end = { line: mousePos.line, ch: token.end };
       const relevantMousePos = {
-        start: cm.indexFromPos(start),
-        end: cm.indexFromPos(end),
+        start: instance.indexFromPos(start),
+        end: instance.indexFromPos(end),
       };
 
       const position = relevantMousePos;
@@ -109,7 +110,7 @@ export const GraphiQLApp = ({
         console.error(
           'Unable to find definition corresponding to mouse position'
         );
-        return null;
+        return;
       }
 
       const operationKind =
@@ -144,13 +145,15 @@ export const GraphiQLApp = ({
     if (!graphiQLRef.current) return;
     const graphiql = graphiQLRef.current;
 
-    const editor = graphiql.getQueryEditor();
+    const editor = graphiql.getQueryEditor() as Editor;
     if (!editor) return;
 
-    editor.setOption('extraKeys', {
-      ...(editor.options.extraKeys || {}),
-      'Shift-Alt-LeftClick': handleInspectOperation,
-    });
+    editor.setOption(
+      'extraKeys',
+      Object.assign({}, editor.getOption('extraKeys'), {
+        'Shift-Alt-LeftClick': handleInspectOperation,
+      })
+    );
   }, [handleInspectOperation]);
 
   const handlePrettifyClick = () => {
