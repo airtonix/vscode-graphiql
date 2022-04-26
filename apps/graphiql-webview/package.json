@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "compile": "vite build",
-    "watch": "vite dev  --host"
+    "watch": "vite dev  --host",
+    "storybook": "start-storybook"
   }
 }
