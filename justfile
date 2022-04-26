@@ -15,8 +15,8 @@ setup:
     husky install
 
 # Record a changeset
-change:
-    changeset
+change *command='':
+    changeset {{command}}
 
 build:
     nx run-many --target=build --all
