@@ -31,10 +31,8 @@ type GraphiQLAppProps = Omit<GraphiQLProps, 'schema' | 'fetcher'> & {
   }) => Promise<void>;
 };
 type GraphiQLAppState = {
-  query?: string;
-  disableExplorer?: boolean;
+  docExplorerOpen?: boolean;
   explorerIsOpen?: boolean;
-  codeExporterIsOpen?: boolean;
   connectionConfigIsOpen?: boolean;
 };
 
@@ -46,15 +44,16 @@ export const GraphiQLApp = ({
   variables,
   disableExplorer,
   disableConnectionEditor,
+  shouldPersistHeaders,
+  onEditHeaders,
   onEditOperationName,
   onEditQuery,
   onEditVariables,
   onSaveConnectionClick,
 }: GraphiQLAppProps) => {
   const [state, setState] = useState<GraphiQLAppState>({
-    disableExplorer,
+    docExplorerOpen: false,
     explorerIsOpen: true,
-    codeExporterIsOpen: false,
     connectionConfigIsOpen: false,
   });
 
@@ -216,8 +215,9 @@ export const GraphiQLApp = ({
           onEditQuery={handleEditQuery}
           onEditVariables={onEditVariables}
           onEditOperationName={onEditOperationName}
-          shouldPersistHeaders={true}
-          docExplorerOpen={true}
+          shouldPersistHeaders={shouldPersistHeaders}
+          docExplorerOpen={state.docExplorerOpen}
+          onEditHeaders={onEditHeaders}
         >
           <GraphiQL.Toolbar>
             <GraphiQL.Button
