@@ -26,23 +26,24 @@ jobs:
           asdf plugin add just https://github.com/heliumbrain/asdf-just
           asdf install
 
-      - name: Setup publishing
-        uses: actions/setup-node@v2
-        with:
-          registry-url: 'https://npm.pkg.github.com'
+      - name: Get pnpm cache directory path
+        id: pnpm-cache-dir-path
+        run: echo "::set-output name=dir::$(pnpm store path)"
 
       - name: Cache node modules
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        id: pnpm-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         uses: actions/cache@v2
         env:
-          cache-name: cache-yarn-modules
+          cache-name: cache-pnpm-modules
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.pnpm-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-
 
-      - run: yarn install --immutable
+      - name: pnpm install
+        if: steps.pnpm-cache.outputs.cache-hit != 'true'
+        run: pnpm install --frozen-lockfile
 
       - name: Setup git
         run: |
@@ -55,28 +56,15 @@ jobs:
           github_token: ${{ secrets.GIT_PUSH_TOKEN }}
           branch: ${{ github.ref }}
 
-      - name: Get Current Pull Request
-        uses: 8BitJonny/gh-get-current-pr@1.0.1
-        id: pr
+      - name: build
+        run: just nx package vscode-graphiql
+
+      - uses: "marvinpinto/action-automatic-releases@v1.2.1"
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          filterOutClosed: true
-
-      - id: file_changes
-        name: File Changes
-        uses: trilom/file-changes-action@a6ca26c14274c33b15e6499323aac178af06ad4b
-        with:
-          output: json
-          fileOutput: json
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          prNumber: ${{ steps.pr.outputs.number }}
-          pushBefore: ''
-          pushAfter: ''
-
-      - if: contains(steps.file_changes.outputs.files , 'apps/vscode=graphql-explorer-ext')
-        name: Build/release Extension
-        run: echo 'building extension'
-
-      - if: contains(steps.file_changes.outputs.files , 'apps/vscode=graphql-explorer-view')
-        name: Build/release View
-        run: echo 'building view'
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            dist/apps/graphiql-extension/LICENSE.txt
+            dist/apps/graphiql-extension/*.vsix
