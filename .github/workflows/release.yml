@@ -21,7 +21,7 @@ jobs:
       - name: asdf install
         run: |
           set -x
-          asdf plugin add yarn
+          asdf plugin add pnpm
           asdf plugin add nodejs
           asdf plugin add just https://github.com/heliumbrain/asdf-just
           asdf install
