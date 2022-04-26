@@ -16,7 +16,7 @@ export class VscodeApi<TState> implements WebviewApi<TState> {
     this.api.postMessage(message);
   }
 
-  onMessage(callback: (message: any) => void): () => void {
+  onMessage(callback: (message: unknown) => void): () => void {
     window.addEventListener('message', callback);
     return () => window.removeEventListener('message', callback);
   }

@@ -20,4 +20,4 @@ type ZoneModel {
   name: String!
   spritesheet: String!
 }
-`
+`;

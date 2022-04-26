@@ -25,9 +25,16 @@ build:
 release:
     changeset version
 
-prcheck:
-    eslint . --ext tsx,ts
-    jest --coverage --passWithNoTests
+lint:
+    nx affected --target=lint
+
+test:
+    nx affected --target=test
+
+typecheck:
+    nx affected --target=typecheck
+
+prcheck: lint test typecheck
 
 clean:
     git clean -xdf
@@ -38,9 +45,6 @@ fix:
 
 nx *command='':
     nx {{command}}
-
-test:
-    jest
 
 # AppShortcut: Extension VScode Graphql Explorer
 ext *command='dev':

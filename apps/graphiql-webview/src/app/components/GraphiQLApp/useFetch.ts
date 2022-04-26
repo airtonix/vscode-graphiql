@@ -28,7 +28,7 @@ export function useFetch({ token, url }: UseFetchProps): Fetcher | undefined {
         body,
       });
     },
-    [token, url]
+    [token]
   );
 
   return useMemo(() => {
@@ -37,5 +37,5 @@ export function useFetch({ token, url }: UseFetchProps): Fetcher | undefined {
       url,
       fetch: fetcher,
     });
-  }, [token, url]);
+  }, [fetcher, url]);
 }
