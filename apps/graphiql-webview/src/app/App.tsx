@@ -13,6 +13,7 @@ const App = () => {
     schema: '',
     query: '',
     variables: '',
+    headers: '',
     connection: {
       host: '',
       token: '',
@@ -54,6 +55,16 @@ const App = () => {
           host={state.connection?.host}
           token={state.connection?.token}
           variables={state.variables}
+          onEditHeaders={async (headers) => {
+            vscode.postMessage({
+              command: MessageStates.SAVE_STATE,
+              payload: {
+                ...state,
+                headers,
+              },
+            });
+            setState({ ...state, headers });
+          }}
           onEditVariables={async (variables) => {
             vscode.postMessage({
               command: MessageStates.SAVE_STATE,

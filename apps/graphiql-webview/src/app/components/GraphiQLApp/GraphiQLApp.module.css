@@ -1,6 +1,5 @@
 .block {
     width: 100vw;
-    height: 100vh;
     display: flex;
     flex-direction: row;
     font-family: var(--vscode-font-family);
@@ -17,7 +16,6 @@
     background: var(--vscode-editor-background);
     border-bottom: 1px solid var(--vscode-editorGroup-border);
     color: var(--vscode-foreground);
-
 }
 
 .block :global .graphiql-container .editorWrap .docExplorerShow {
@@ -70,7 +68,17 @@
     padding: 8px 8px 5px;
 
     color: inherit;
+    font-family: inherit;
+
 }
+
+.block :global .doc-explorer-title-bar .doc-explorer-title {
+    font-weight: bold;
+    justify-content: start;
+    display: flex;
+    font-family: inherit;
+}
+
 
 .block :global .doc-explorer-title-bar .doc-explorer-back {
     background: var(--vscode-editor-background);
@@ -81,12 +89,6 @@
 .block :global .doc-explorer-title-bar .doc-explorer-back:before {
     color: var(--vscode-foreground);
     border-color: currentColor;
-}
-
-.block :global .doc-explorer-title-bar .doc-explorer-title {
-    font-weight: bold;
-    align-self: start;
-    display: flex;
 }
 
 .block :global .doc-explorer-title-bar .doc-explorer-rhs button {
@@ -112,17 +114,29 @@
     color: var(--vscode-tab-activeForeground);
 }
 
-.block :global .doc-explorer-rhs:hover {
+.block :global .doc-explorer-title-bar .doc-explorer-rhs:hover {
 
     background: var(--vscode-toolbar-hoverBackground)
 }
 
-.block :global .doc-explorer-contents,
-.block :global .doc-explorer .doc-explorer-contents {
-    flex: 1;
+.block :global .doc-explorer-contents {
+    display: flex;
+    flex-direction: column;
     background-color: inherit;
     border-top: 1px solid var(--vscode-editorGroup-border);
+    height: calc(100% - 50px);
+}
 
+.block :global .graphiql-explorer-root {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.block :global .graphiql-explorer-root div:nth-child(1) {}
+
+.block :global .graphiql-explorer-root div:nth-child(2) {
+    flex-grow: 1;
 }
 
 .block :global .doc-explorer-contents .graphiql-explorer-actions {
