@@ -17,15 +17,8 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@nrwl/devkit": "13.10.2",
+    "jest-junit": "13.2.0",
     "@nrwl/jest": "13.10.2",
-    "@nrwl/js": "13.10.2",
-    "@types/jest": "27.0.2",
-    "jest": "27.2.3",
-    "ts-jest": "27.0.5",
-    "tslib": "^2.0.0"
-  },
-  "dependencies": {
     "@babel/eslint-parser": "7.17.0",
     "@changesets/cli": "2.14.1",
     "@graphql-tools/mock": "8.6.7",

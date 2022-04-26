@@ -19,25 +19,25 @@ jobs:
           asdf plugin add just https://github.com/heliumbrain/asdf-just
           asdf install
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - name: Get pnpm cache directory path
+        id: pnpm-cache-dir-path
+        run: echo "::set-output name=dir::$(pnpm store path)"
 
       - name: Cache node modules
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        id: pnpm-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         uses: actions/cache@v2
         env:
-          cache-name: cache-yarn-modules
+          cache-name: cache-pnpm-modules
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.pnpm-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn typecheck
-      - run: yarn lint
-      - run: yarn test -- --ci --reporters=default --reporters=jest-junit
+      - run: pnpm install --frozen-lockfile
+      - run: just nx affected --target=typecheck
+      - run: just nx affected --target=lint
+      - run: just nx affected --target=test -- --ci --reporters=default --reporters=jest-junit
         env:
           JEST_JUNIT_OUTPUT_DIR: reports
           JEST_JUNIT_OUTPUT_NAME: jest-junit.xml
@@ -51,4 +51,4 @@ jobs:
         if: success() || failure() # run this step even if previous step failed
         with:
           name: test-results
-          path: reports/jest-junit.xml
+          path: jest-junit.xml
