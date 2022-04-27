@@ -28,7 +28,7 @@ jobs:
         run: echo "::set-output name=dir::$(pnpm store path)"
 
       - name: Cache node modules
-        id: pnpm-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        id: pnpm-cache
         uses: actions/cache@v2
         env:
           cache-name: cache-pnpm-modules
@@ -42,19 +42,7 @@ jobs:
         if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
 
-      # - name: Cache Nx
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: node_modules/.cache/nx
-      #     key: cache-nx-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles(.tool-versions) }}-${{ github.sha }}
-      #     restore-keys: |
-      #       cache-nx-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles(.tool-versions) }}-
-      #       cache-nx-${{ hashFiles('pnpm-lock.yaml') }}-
-
-      - run: just nx workspace-lint --base=origin/master
-      - run: just nx affected --target=typecheck --base=origin/master
-      - run: just nx affected --target=lint --base=origin/master
-      - run: just nx affected --target=test -- --ci --reporters=default --reporters=jest-junit --base=origin/master
+      - run: just prcheck
         env:
           JEST_JUNIT_OUTPUT_DIR: reports
           JEST_JUNIT_OUTPUT_NAME: jest-junit.xml

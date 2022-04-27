@@ -19,20 +19,33 @@ change *command='':
     changeset {{command}}
 
 build:
-    nx run-many --target=build --all
+    nx run-many \
+        --target=build \
+        --all
 
 # Process recorded changesets
 release:
     changeset version
 
 lint:
-    nx affected --target=lint
+    nx affected \
+        --target=lint \
+        --base=origin/master
 
 test:
-    nx affected --target=test
+    nx affected \
+        --target=test \
+        --base=origin/master \
+        -- --ci --reporters=default --reporters=jest-junit
 
 typecheck:
-    nx affected --target=typecheck
+    nx affected \
+        --target=typecheck \
+        --base=origin/master
+
+workspacelint:
+    nx workspace-lint \
+        --base=origin/master
 
 prcheck: lint test typecheck
 
