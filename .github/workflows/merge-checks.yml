@@ -3,6 +3,8 @@ name: CI
 on:
   pull_request:
 
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   mergechecks:
     runs-on: ubuntu-latest

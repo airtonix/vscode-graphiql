@@ -8,15 +8,14 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  process_changeset:
+  release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - uses: actions/checkout@v2
         with:
-          persist-credentials: false
+          fetch-depth: 0
+
+      - run: git fetch --no-tags --prune --depth=5 origin master
 
       - name: asdf setup
         uses: asdf-vm/actions/setup@v1.1.0
@@ -33,7 +32,7 @@ jobs:
         run: echo "::set-output name=dir::$(pnpm store path)"
 
       - name: Cache node modules
-        id: pnpm-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        id: pnpm-cache
         uses: actions/cache@v2
         env:
           cache-name: cache-pnpm-modules
