@@ -11,6 +11,8 @@ jobs:
         with:
           fetch-depth: 0
 
+      - run: git fetch --no-tags --prune --depth=5 origin master
+
       - name: asdf setup
         uses: asdf-vm/actions/setup@v1.1.0
       - name: asdf install
