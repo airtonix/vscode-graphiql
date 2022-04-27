@@ -5,6 +5,8 @@ on:
     branches:
       - master
 
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   process_changeset:
     runs-on: ubuntu-latest
@@ -45,21 +47,18 @@ jobs:
         if: steps.pnpm-cache.outputs.cache-hit != 'true'
         run: pnpm install --frozen-lockfile
 
-      - name: Setup git
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@8407731efefc0d8f72af254c74276b7a90be36e1
-        with:
-          github_token: ${{ secrets.GIT_PUSH_TOKEN }}
-          branch: ${{ github.ref }}
+      - name: Create Release Pull Request
+        id: changesets
+        uses: changesets/action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: build
+        if: steps.changesets.outputs.hasChangesets == 'false'
         run: just nx package vscode-graphiql
 
       - uses: "marvinpinto/action-automatic-releases@v1.2.1"
+        if: steps.changesets.outputs.hasChangesets == 'false'
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
