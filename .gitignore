@@ -113,3 +113,4 @@ dist/
 
 src/*.js
 src/*.js.map
+junit.xml

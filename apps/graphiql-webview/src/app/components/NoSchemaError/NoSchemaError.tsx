@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styles from './NoSchemaError.module.css';
 
 export const NoSchemaError = () => {

@@ -2,10 +2,9 @@
 /* eslint-disable no-console */
 const fs = require('fs');
 
-const glob = require('glob');
 const { build, cliopts } = require('estrella');
 
-const [opts, args] = cliopts.parse(
+const [opts] = cliopts.parse(
   ['o, outputPath', 'compile destination', '<file>'],
   ['copyAssets', 'copy extra files to <outputPath>']
 );

@@ -5,7 +5,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 /**
  * @type {import('vite').UserConfig}
  */
-const config = defineConfig(({ command, mode }) => {
+const config = defineConfig(({ command }) => {
   const isLocalDev = command === 'serve';
   const baseUrl = isLocalDev ? 'http://localhost:3000' : '/';
 

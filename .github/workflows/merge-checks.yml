@@ -8,6 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - run: git fetch --no-tags --prune --depth=5 origin master
 
       - name: asdf setup
         uses: asdf-vm/actions/setup@v1.1.0
@@ -19,25 +23,26 @@ jobs:
           asdf plugin add just https://github.com/heliumbrain/asdf-just
           asdf install
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - name: Get pnpm cache directory path
+        id: pnpm-cache-dir-path
+        run: echo "::set-output name=dir::$(pnpm store path)"
 
       - name: Cache node modules
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        id: pnpm-cache
         uses: actions/cache@v2
         env:
-          cache-name: cache-yarn-modules
+          cache-name: cache-pnpm-modules
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.pnpm-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn typecheck
-      - run: yarn lint
-      - run: yarn test -- --ci --reporters=default --reporters=jest-junit
+      - name: pnpm install
+        if: steps.pnpm-cache.outputs.cache-hit != 'true'
+        run: pnpm install --frozen-lockfile
+
+      - run: just prcheck
         env:
           JEST_JUNIT_OUTPUT_DIR: reports
           JEST_JUNIT_OUTPUT_NAME: jest-junit.xml
@@ -51,4 +56,4 @@ jobs:
         if: success() || failure() # run this step even if previous step failed
         with:
           name: test-results
-          path: reports/jest-junit.xml
+          path: jest-junit.xml

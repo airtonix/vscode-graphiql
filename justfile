@@ -15,19 +15,39 @@ setup:
     husky install
 
 # Record a changeset
-change:
-    changeset
+change *command='':
+    changeset {{command}}
 
 build:
-    nx run-many --target=build --all
+    nx run-many \
+        --target=build \
+        --all
 
 # Process recorded changesets
 release:
     changeset version
 
-prcheck:
-    eslint . --ext tsx,ts
-    jest --coverage --passWithNoTests
+lint:
+    nx affected \
+        --target=lint \
+        --base=origin/master
+
+test:
+    nx affected \
+        --target=test \
+        --base=origin/master \
+        -- --ci --reporters=default --reporters=jest-junit
+
+typecheck:
+    nx affected \
+        --target=typecheck \
+        --base=origin/master
+
+workspacelint:
+    nx workspace-lint \
+        --base=origin/master
+
+prcheck: lint test typecheck
 
 clean:
     git clean -xdf
@@ -38,9 +58,6 @@ fix:
 
 nx *command='':
     nx {{command}}
-
-test:
-    jest
 
 # AppShortcut: Extension VScode Graphql Explorer
 ext *command='dev':

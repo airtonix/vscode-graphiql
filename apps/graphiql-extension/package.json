@@ -1,6 +1,6 @@
 {
   "name": "@vscodegraphiql/extension",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "airtonix",
   "author": {
     "email": "airtonix@users.noreply.github.com",
@@ -19,7 +19,8 @@
   "scripts": {
     "license": "pnpx license",
     "compile": "node ./estrella.build.js --copyAssets",
-    "watch": "node ./estrella.build.js --outputPath=./src --watch"
+    "watch": "node ./estrella.build.js --outputPath=./src --watch",
+    "typecheck": "tsc --project tsconfig.app.json --noEmit"
   },
   "packaging": {
     "template": {

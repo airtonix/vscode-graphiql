@@ -6,7 +6,6 @@ import { schema, server } from '../../mocks';
 
 import { GraphiQLApp } from './GraphiQLApp';
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: 'AppView/GraphiQLApp',
   component: GraphiQLApp,
@@ -29,12 +28,12 @@ export default {
 } as ComponentMeta<typeof GraphiQLApp>;
 
 const Template: ComponentStory<typeof GraphiQLApp> = (args) => {
-  const [state, setState] = useState<any>({});
+  const [state, setState] = useState({ query: '' });
   return (
     <GraphiQLApp
       {...args}
       query={state.query}
-      onEditQuery={(query) => setState({ ...state, query })}
+      onEditQuery={(query) => setState({ ...state, query: query || '' })}
     />
   );
 };

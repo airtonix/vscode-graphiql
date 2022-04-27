@@ -1,13 +1,15 @@
+import * as path from 'path';
+
 import {
+  Tree,
   addProjectConfiguration,
   formatFiles,
   generateFiles,
   getWorkspaceLayout,
   names,
   offsetFromRoot,
-  Tree,
 } from '@nrwl/devkit';
-import * as path from 'path';
+
 import { NxVscodeGeneratorSchema } from './schema';
 
 interface NormalizedSchema extends NxVscodeGeneratorSchema {
